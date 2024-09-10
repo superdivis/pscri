@@ -1,6 +1,6 @@
-#+-------------------------------------------------------------+
-# Painel de Simulação de Cenários Regionais IPEA - PSCRI       |
-#+-------------------------------------------------------------+
+
+# Painel de Simulação de Cenários Regionais IPEA - PSCRI       
+
 
 Cliente: Instituto de Pesquisa Econômica Aplicada - IPEA    
 Data inicio: 17/08/2024                                     
