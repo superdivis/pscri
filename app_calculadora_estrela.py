@@ -13,11 +13,252 @@ import streamlit as st
 import pandas as pd
 import altair as alt
 import plotly.express as px
-from calculadora_estrela_frontend import *
-from calculadora_ipea_dao import * 
-
+import numpy as np
+import leafmap.foliumap as leafmap
+import squarify
+import matplotlib.pyplot as plt
 
 #######################
+# Plots
+
+# Donut chart
+def make_donut(input_response, input_text, input_color):
+  if input_color == 'blue':
+      chart_color = ['#29b5e8', '#155F7A']
+  if input_color == 'green':
+      chart_color = ['#27AE60', '#12783D']
+  if input_color == 'orange':
+      chart_color = ['#F39C12', '#875A12']
+  if input_color == 'red':
+      chart_color = ['#E74C3C', '#781F16']
+    
+  source = pd.DataFrame({
+      "Topic": ['', input_text],
+      "% value": [100-input_response, input_response]
+  })
+  source_bg = pd.DataFrame({
+      "Topic": ['', input_text],
+      "% value": [100, 0]
+  })
+    
+  plot = alt.Chart(source).mark_arc(innerRadius=45, cornerRadius=25).encode(
+      theta="% value",
+      color= alt.Color("Topic:N",
+                      scale=alt.Scale(
+                          #domain=['A', 'B'],
+                          domain=[input_text, ''],
+                          # range=['#29b5e8', '#155F7A']),  # 31333F
+                          range=chart_color),
+                      legend=None),
+  ).properties(width=130, height=130)
+    
+  text = plot.mark_text(align='center', color="#29b5e8", font="Lato", fontSize=32, fontWeight=700, fontStyle="italic").encode(text=alt.value(f'{input_response} %'))
+  plot_bg = alt.Chart(source_bg).mark_arc(innerRadius=45, cornerRadius=20).encode(
+      theta="% value",
+      color= alt.Color("Topic:N",
+                      scale=alt.Scale(
+                          # domain=['A', 'B'],
+                          domain=[input_text, ''],
+                          range=chart_color),  # 31333F
+                      legend=None),
+  ).properties(width=130, height=130)
+  return plot_bg + plot + text
+
+# Convert population to text 
+def format_number(num):
+    if num > 1000000:
+        if not num % 1000000:
+            return f'{num // 1000000} M'
+        return f'{round(num / 1000000, 1)} M'
+    return f'{num // 1000} K'
+
+# Calculation year-over-year population migrations
+def calculate_population_difference(input_df, input_year):
+  selected_year_data = input_df[input_df['year'] == input_year].reset_index()
+  previous_year_data = input_df[input_df['year'] == input_year - 1].reset_index()
+  selected_year_data['population_difference'] = selected_year_data.population.sub(previous_year_data.population, fill_value=0)
+  return pd.concat([selected_year_data.states, selected_year_data.id, selected_year_data.population, selected_year_data.population_difference], axis=1).sort_values(by="population_difference", ascending=False)
+
+def init_painel(valores_resumo,df_tabela_pibs):
+    #######################
+    # Dashboard Main Panel
+    col = st.columns((4.5, 6 ), gap='medium')
+    
+    with col[0]:
+        st.markdown('#### PIB por região')
+        
+        m = leafmap.Map(center=[40, -100], zoom=4)
+        cities = "https://raw.githubusercontent.com/giswqs/leafmap/master/examples/data/us_cities.csv"
+        #regions = "https://raw.githubusercontent.com/giswqs/leafmap/master/examples/data/us_regions.geojson"
+        regions = "regioes_br.geojson"
+
+        m.add_geojson(regions, layer_name="US Regions")
+        m.add_points_from_xy(
+            cities,
+            x="longitude",
+            y="latitude",
+            color_column="region",
+            icon_names=["gear", "map", "leaf", "globe"],
+            spin=True,
+            add_legend=False,
+        )
+
+        m.to_streamlit(height=550)
+       
+    with col[1]:
+                
+        st.markdown('#### Resumo Valores')
+        col1, col2, col3 = st.columns(3)
+        valor_mult = f'{valores_resumo[0][0]:.2f}'
+        valor_vazamento = f'{valores_resumo[1][0]*100:.0f}'
+        valor_pib_percentual = f'{valores_resumo[2][0]*100:.2f}'
+        col1.metric(label="Multiplicador", value= valor_mult )
+        col2.metric(label="Vazamento (%)", value = valor_vazamento )
+        col3.metric(label="PIB (%)", value= valor_pib_percentual )
+            
+        st.markdown('#### Top Setores')
+        
+        st.dataframe(df_tabela_pibs,
+                    column_order=("atividade","pib","pib_atual"),
+                    hide_index=True,
+                    width=None,
+                    column_config={
+                        "atividade": st.column_config.TextColumn(
+                            "Setores",
+                        ),
+                        "pib": st.column_config.ProgressColumn(
+                            "PIB Atual",
+                            format="%f",
+                            min_value=0,
+                            max_value=max(df_tabela_pibs.pib),
+                        ),
+                        "pib_atual": st.column_config.ProgressColumn(
+                            "PIB Novo",
+                            format="%f",
+                            min_value=0,
+                            max_value=max(df_tabela_pibs.pib_atual),
+                        )}
+                    )
+    
+
+#############################################################################################################################################################
+# Lê execel
+# Registro da Análise da Matriz de Insumo Produto
+def le_arquivo(file_path):
+  ret = pd.read_excel(file_path, sheet_name='N')
+  return ret
+
+####################
+#Preparação da Matriz de insumo produto por Região (68 x 68 x 5)
+def prepara_matriz(arquivo_dados, n_col, n_lin):
+  matriz = np.zeros((n_col, n_lin), dtype=np.float64)
+  #print("Lendo arquivo...")
+  #print(float(df.iloc[1][343]))
+  for col in range(n_col):
+      #print ("Lendo registro da coluna:" , str(col)) 
+      for lin in range (n_lin):
+          #print ("Lendo registro da linha:" , str(lin)) 
+          #print(df.iloc[lin+1][col+2])
+          matriz[lin, col] = float(arquivo_dados.iloc[lin+1][col+2])
+    #print (matriz_insumo_produto_regioes[0:4,0:4])
+  return matriz
+
+####################
+#Preparação do vetor vy
+def prepara_vetor_y(arquivo_dados, n_col):
+  vy = np.zeros((n_col,1), dtype=np.float64)
+  for lin in range (n_col):
+    #print(float(df.iloc[lin+1][max_col+2]))
+    vy[lin,0] =  float(arquivo_dados.iloc[lin+1][n_col+3])
+  return vy
+
+####################
+#Preparação do vetor vx
+def prepara_vetor_x(matriz, vy):
+  print("Criando o vetor vx - Matriz X vy")
+  vx = np.dot(matriz, vy)
+  return vx
+  
+####################
+#Lendo o vetor pib
+def ler_vetor_pib(arquivo, n_col, n_lin):
+  print("Lendo arquivo  para o vetor pib...")
+  pib = np.zeros((340,1), dtype=np.float64)
+  for lin in range (n_lin):
+    #print(float(df.iloc[lin+1][max_col+2]))
+    pib[lin,0] =  float(arquivo.iloc[lin+1][n_col+7])
+  return pib
+
+####################
+#Cálculo do vetor v
+def calcular_vetor_v(pib, vx):
+  #print("Calculando vetor v...")
+  vv = []
+  for i in range(len(pib)):
+      tmp = pib[i]/vx[i]
+      vv.append(tmp)
+  return vv
+
+####################
+#Preparar delta y
+def preparar_delta_y(n_col, valor_choque, setor):
+  delta_y = np.zeros((n_col,1), dtype=np.float64)
+  delta_y[setor,0] = valor_choque
+  return delta_y
+
+####################
+#Preparar delta x
+def preparar_delta_x(matriz, delta_y):
+  delta_x = np.dot(matriz, delta_y)
+  return delta_x
+
+####################
+#Preparar delta pib
+def calcular_delta_pib(pib,vv, delta_x):
+  delta_pib = []
+  for i in range(len(pib)):
+    tmp = vv[i]*delta_x[i]
+    delta_pib.append(tmp)
+  return delta_pib
+
+####################
+#Preparar novo pib
+def calcular_novo_pib(pib, delta_pib):
+  novo_pib = []
+  for i in range(len(pib)):
+    tmp = pib[i]+delta_pib[i]
+    novo_pib.append(tmp)
+  return novo_pib
+
+####################
+# Calcular total pib regional
+# (pib atual / pib novo)
+def calcular_total_pib_reional(pib, indice_inicial, indice_final):
+  #print(indice_inicial)
+  #print(indice_final)
+  #print( str(pib[indice_inicial]) , str(pib[indice_final]) )
+  pib_regional = pib[indice_inicial:indice_final+1]
+  return sum (pib_regional)
+
+####################
+# Vincula setores e valores de PIB
+# (setor / pib atual / pib novo)
+def vincula_setores_pibs(atividades, pib_inicial, pib_atual, deslocamento_territorial):
+  i = deslocamento_territorial
+  indice_atividade = 0
+  v = [atividades[indice_atividade], int(round(pib_inicial[i][0])) , int(round(pib_atual[i][0]))]
+  df = pd.DataFrame([v])
+  df.columns = ['atividade','pib','pib_atual']
+  for ativ in range(len(atividades)-1):
+    i = i + 1
+    indice_atividade = indice_atividade + 1
+    vetor = [ atividades[indice_atividade], int(round(pib_inicial[i][0])) , int(round(pib_atual[i][0])) ]
+    df.loc[len(df.index)] = vetor
+  return df
+
+
+
+######################################################################################################################################################
 # Page configuration
 st.set_page_config(
     page_title="Cálculo de Matriz Insumo Produto IPEA",
