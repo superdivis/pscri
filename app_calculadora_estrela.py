@@ -13,9 +13,8 @@ import streamlit as st
 import pandas as pd
 import altair as alt
 import plotly.express as px
-from frontend.calculadora_estrela_frontend import *
-from backend.calculadora_ipea_dao import * 
-
+from calculadora_estrela_frontend import *
+from calculadora_ipea_dao import * 
 
 
 #######################
@@ -37,7 +36,7 @@ with st.spinner('Carregando dados...'):
     #+-----------------+-----------------------------------------------------
     # Initialize session state variables
     if 'file_path_matriz' not in st.session_state:
-        st.session_state.file_path_matriz = 'E:\Alex\Livano\IPEA\calculadora_estrela\data\Analise de impacto.xlsx'
+        st.session_state.file_path_matriz = 'Analise de impacto.xlsx'
         st.session_state.df = le_arquivo(st.session_state.file_path_matriz)  
 
     #+-----------------------------+
