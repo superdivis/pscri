@@ -107,3 +107,4 @@ whitebox==2.3.5
 whiteboxgui==2.3.0
 widgetsnbextension==4.0.13
 xyzservices==2024.6.0
+setuptools==65.5.0
