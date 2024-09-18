@@ -1,0 +1,7 @@
+https://www.analyticsvidhya.com/blog/2021/02/building-a-covid-19-dashboard-using-streamlit-and-python/
+
+https://docs.streamlit.io/develop/api-reference/data/st.table
+
+https://www.youtube.com/watch?v=-cg3qPhI74s
+
+https://github.com/streamlit/example-app-crypto-dashboard

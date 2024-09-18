@@ -108,14 +108,22 @@ def init_painel(valores_resumo,df_tabela_pibs):
     with col[1]:
                 
         st.markdown('#### Resumo Valores')
-        col1, col2, col3 = st.columns(3)
+        col1, col2, col3, col4 = st.columns(4)
+        col5, col6, col7, col8 = st.columns(4)
         valor_mult = f'{valores_resumo[0][0]:.2f}'
         valor_vazamento = f'{valores_resumo[1][0]*100:.0f}'
         valor_pib_percentual = f'{valores_resumo[2][0]*100:.2f}'
-        col1.metric(label="Multiplicador", value= valor_mult )
-        col2.metric(label="Vazamento (%)", value = valor_vazamento )
-        col3.metric(label="PIB (%)", value= valor_pib_percentual )
-            
+        col1.metric(label="Região", value= "Norte" )
+        col2.metric(label="Multiplicador", value= valor_mult )
+        col3.metric(label="Vazamento (%)", value = valor_vazamento )
+        col4.metric(label="PIB (%)", value= valor_pib_percentual )
+
+        col5.metric( label="" , value= "Sul" )
+        col6.metric( label="" ,value = valor_mult )
+        col7.metric( label="" ,value = valor_vazamento )
+        col8.metric( label="" ,value= valor_pib_percentual )
+        
+
         st.markdown('#### Top Setores')
         
         st.dataframe(df_tabela_pibs,
