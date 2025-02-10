@@ -7,17 +7,17 @@
 # | Email: alexandresantoscompunb@gmail.com                     |
 # +-------------------------------------------------------------+----------------------------------------------------------
 
-import os.path
+#import os.path
 import sqlite3
-
 
 #+---------------------------+
 #| Retorna conexão de banco  |
 #+---------------------------+
 def retorna_conexao():
-  BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-  db_path = os.path.join(BASE_DIR, "pscr.db")
-  conn = sqlite3.connect(db_path)  
+  #BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+  #db_path = os.path.join(BASE_DIR, "pscr.db")
+  #conn = sqlite3.connect(db_path)  
+  conn = sqlite3.connect("pscr.db")  
   return conn
 
 #+---------------------------------------------------------------------------------------------------------------
