@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Painel de Simulação de Cenários Regionais - PSCR</title>
+	<link href="static/css/bootstrap/bootstrap.min.css" rel="stylesheet">
+	<link href="static/css/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
+	<link href="static/css/style.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+	
+	<!--<script src="{{ url_for('static',    filename='js/main.js') }}" defer></script>
+	<script src="{{ url_for('static',    filename='js/util.js') }}" defer></script>
+	<script src="{{ url_for('static',    filename='js/servicos_rest.js') }}" defer></script> -->
+
+	<script src="static/js/main.js"></script>
+	<script src="static/js/util.js"></script>
+	<script src="static/js/servicos_rest.js"></script>
+
+	<!-- amCharts -->
+	<script src="static/js/amcharts5/index.js"></script>
+	<script src="static/js/amcharts5/percent.js"></script>
+	<script src="static/js/amcharts5/xy.js"></script>
+	<script src="static/js/amcharts5/themes/Animated.js"></script>
+	<script src="static/js/amcharts5/hierarchy.js"></script>
+	<script src="static/js/amcharts5/map.js"></script>
+	<script src="static/js/amcharts5/locales/pt_BR.js"></script>
+	<script src="static/js/amcharts5/geodata/worldLow.js"></script>
+	<script src="static/js/amcharts5/geodata/brazilLow.js"></script>
+	<script src="static/js/amcharts5/fonts/notosans-sc.js"></script>
+
+	<script src="static/js/maps.js"></script>
+	<script src="static/js/treemap.js"></script>
+</head>
+
+<body>
+	<form action="" id="id_formulario_de_captura" method="get">
+	<!-- Modal Save Simulations -->
+	<div class="modal fade" id="saveModal" tabindex="-1" aria-labelledby="saveModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5" id="saveModalLabel">Salvar</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<p>Gostaria de salvar esta simulação?</p>
+					<input class="form-control" type="text" placeholder="Informe o nome da simulação">
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa-solid fa-xmark me-2"></i>Não</button>
+					<button type="button" class="btn btn-success"><i class="fa-solid fa-check me-2"></i>Sim</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal Delete Simulations -->
+	<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5" id="deleteModalLabel">Excluir</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<p>Deseja realmente excluir a simulação?</p>
+					<p class="m-0 text-success" id="id_nome_simulacao">Nome da Simulação 01</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa-solid fa-xmark me-2"></i>Não</button>
+					<button type="button" class="btn btn-success" data-bs-dismiss="modal" id="id_btn_modal_delete_confirm"><i  class="fa-solid fa-check me-2" ></i>Sim</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal About -->
+	<div class="modal fade" id="aboutModal" tabindex="-1" aria-labelledby="aboutModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5" id="aboutModalLabel">Sobre</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<p>Sobre lorem ipsum dolor sit amet...</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Offcanvas Activities -->
+	<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasActivities" aria-labelledby="offcanvasActivitiesLabel">
+		<div class="offcanvas-header bg-success bg-gradient text-white">
+			<h5 class="offcanvas-title" id="offcanvasActivitiesLabel"><i class="fa-solid fa-filter me-2"></i>Choque por atividade</h5>
+			<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+		</div>
+		<div class="offcanvas-body p-0">
+			<div class="text-center border-bottom p-3">
+				<button class="btn btn-outline-secondary btn-sm mb-3 mb-lg-0 me-2" type="button">
+					<i class="fa-solid fa-trash me-2"></i>Limpar tudo
+				</button>
+				<button class="btn btn-outline-primary btn-sm mb-3 mb-lg-0 me-2" type="button">
+					<i class="fa-solid fa-check me-2"></i>Aplicar
+				</button>
+				<button class="btn btn-outline-success btn-sm mb-3 mb-lg-0" type="button" data-bs-toggle="modal" data-bs-target="#saveModal">
+					<i class="fa-regular fa-floppy-disk me-2"></i>Salvar
+				</button>
+			</div>
+			<div class="accordion accordion-flush" id="accordionChoque">
+				<div class="accordion-item">
+					<h2 class="accordion-header">
+						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#norte" aria-expanded="false" aria-controls="flush-collapseOne">Norte</button>
+					</h2>
+					<div id="norte" class="accordion-collapse collapse" data-bs-parent="#accordionChoque">
+						<div class="accordion-body">
+							<div class="text-center">
+								<button class="btn btn-outline-secondary btn-sm mb-3 mb-lg-0" type="button">
+									<i class="fa-solid fa-trash me-2"></i>Limpar região
+								</button>
+							</div>
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
+							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+						</div>
+					</div>
+				</div>
+				<div class="accordion-item">
+					<h2 class="accordion-header">
+						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#nordeste" aria-expanded="false" aria-controls="nordeste">Nordeste</button>
+					</h2>
+					<div id="nordeste" class="accordion-collapse collapse" data-bs-parent="#accordionChoque">
+						<div class="accordion-body">
+							Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the second item's accordion body. Let's imagine this being filled with some actual content.
+						</div>
+					</div>
+				</div>
+				<div class="accordion-item">
+					<h2 class="accordion-header">
+						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#centroOeste" aria-expanded="false" aria-controls="centroOeste">Centro-Oeste</button>
+					</h2>
+					<div id="centroOeste" class="accordion-collapse collapse" data-bs-parent="#accordionChoque">
+						<div class="accordion-body">
+							Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.
+						</div>
+					</div>
+				</div>
+				<div class="accordion-item">
+					<h2 class="accordion-header">
+						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sul" aria-expanded="false" aria-controls="sul">Sul</button>
+					</h2>
+					<div id="sul" class="accordion-collapse collapse" data-bs-parent="#accordionChoque">
+						<div class="accordion-body">
+							Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.
+						</div>
+					</div>
+				 </div>
+				 <div class="accordion-item">
+					<h2 class="accordion-header">
+						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sudeste" aria-expanded="false" aria-controls="sudeste">Sudeste</button>
+					</h2>
+					<div id="sudeste" class="accordion-collapse collapse" data-bs-parent="#accordionChoque">
+						<div class="accordion-body">
+							Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.
+						</div>
+					</div>
+				 </div>
+			 </div>
+		</div>
+	 </div>
+
+	<!-- Offcanvas Simulation -->
+	<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasSimulation" aria-labelledby="offcanvasSimulationLabel">
+		<div class="offcanvas-header bg-success bg-gradient text-white">
+			<h5 class="offcanvas-title" id="offcanvasSimulationLabel"><i class="fa-solid fa-chart-column me-2"></i>Simulações</h5>
+			<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+		</div>
+		<div class="offcanvas-body p-3" id="simu_tela">
+			<ul class="list-unstyled">
+				<li class="d-flex align-items-center  border-bottom py-3">
+					<small class="d-inline-block text-truncate" style="max-width: 270px;">Nome da Simulação 01</small>
+					<div class="ms-auto">
+						<button class="btn btn-outline-secondary btn-sm mb-3 mb-lg-0" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="fa-solid fa-trash"></i></button>
+						<button class="btn btn-outline-success btn-sm mb-3 mb-lg-0"><i class="fa-solid fa-check"></i></button>
+					</div>
+				</li>
+				<li class="d-flex align-items-center border-bottom py-3">
+					<small class="d-inline-block text-truncate" style="max-width: 270px;">Nome da Simulação lorem ipsum dolor sit amet bla bla bla bla bla lorem ipsum 02</small>
+					<div class="ms-auto">
+						<button class="btn btn-outline-secondary btn-sm mb-3 mb-lg-0" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="fa-solid fa-trash"></i></button>
+						<button class="btn btn-outline-success btn-sm mb-3 mb-lg-0"><i class="fa-solid fa-check"></i></button>
+					</div>
+				</li>
+				<li class="d-flex align-items-center border-bottom py-3">
+					<small class="d-inline-block text-truncate" style="max-width: 270px;">Nome da Simulação 03</small>
+					<div class="ms-auto">
+						<button class="btn btn-outline-secondary btn-sm mb-3 mb-lg-0" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="fa-solid fa-trash"></i></button>
+						<button class="btn btn-outline-success btn-sm mb-3 mb-lg-0"><i class="fa-solid fa-check"></i></button>
+					</div>
+				</li>
+				<li class="d-flex align-items-center border-bottom py-3">
+					<small class="d-inline-block text-truncate" style="max-width: 270px;">Nome da Simulação 04</small>
+					<div class="ms-auto">
+						<button class="btn btn-outline-secondary btn-sm mb-3 mb-lg-0" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="fa-solid fa-trash"></i></button>
+						<button class="btn btn-outline-success btn-sm mb-3 mb-lg-0"><i class="fa-solid fa-check"></i></button>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="d-flex flex-column min-vh-100">
+		<!-- Page Header -->
+		<nav class="navbar navbar-expand-lg navbar-dark bg-success bg-gradient topbar mb-4 static-top shadow px-3">
+			<a class="navbar-brand me-lg-4" href="#">
+				<img src="static/img/logo-ipea-negativa.png" class="logo-ipea me-5 me-lg-3" title=" Instituto de Pesquisa Econômica Aplicada - Ipea" alt=" Instituto de Pesquisa Econômica Aplicada - Ipea">
+				<span data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Painel de Simulação de Cenários Regionais - PSCR"><span class="d-none d-xl-inline">Painel de Simulação de Cenários Regionais - </span>PSCR</span>
+			</a>
+			
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse p-lg-0" id="navbarSupportedContent">
+				<select class="selectpicker my-3 my-lg-0 me-lg-3 w-100 w-lg-auto" multiple title="Selecione nível territorial" data-live-search="false">
+					<option value="1">One</option>
+					<option value="2">Two</option>
+					<option value="3">Three</option>
+					<option value="4">Four</option>
+				</select>
+
+				<select class="selectpicker mb-3 mb-lg-0 me-lg-3 w-100 w-lg-auto" multiple title="Selecione região" data-live-search="false">
+					<option value="1">One</option>
+					<option value="2">Two</option>
+					<option value="3">Three</option>
+					<option value="4">Four</option>
+				</select>
+
+				<select class="selectpicker mb-3 mb-lg-0 me-lg-3 w-100 w-lg-auto" multiple title="Selecione sistema" data-live-search="false">
+					<option value="1">One</option>
+					<option value="2">Two</option>
+					<option value="3">Three</option>
+					<option value="4">Four</option>
+				</select>
+
+				<button class="btn btn-outline-light mb-3 me-3 mb-lg-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasActivities" aria-controls="offcanvasActivities">
+					<i class="fa-solid fa-filter me-2"></i>Inserir Valores
+				</button>
+
+				<button class="btn btn-outline-light mb-3 me-3 mb-lg-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSimulation" aria-controls="offcanvasSimulation" id="id_btn_simulacoes">
+					<i class="fa-solid fa-chart-column me-2"></i>Simulações
+				</button>
+
+				<button class="btn btn-outline-light mb-3 mb-lg-0" type="button" data-bs-toggle="modal" data-bs-target="#aboutModal">
+					<i class="fa-solid fa-circle-info me-0 me-lg-2"></i><span class="d-none d-lg-inline-block">Sobre</span>
+				</button>
+			</div>
+		</nav>
+
+		<!-- Page Content -->
+		<div class="container-fluid">
+
+			<div class="row">
+				
+				<!-- Left Column -->
+				<div class="col-lg-5 mb-4">
+					<!-- Map -->
+					<div class="card shadow border-light-subtle mb-4">
+						<div class="card-body">
+								<h6 class="mb-3 text-success fw-bold">PIB por região</h6>
+								<div id="mapdiv"></div>
+						</div>
+				</div>
+					
+				<!-- Treeview -->
+				<div class="card shadow border-light-subtle">
+					<div class="card-body">
+							<h6 class="mb-3 text-success fw-bold">Distribuição por setor</h6>
+							<div id="treemapdiv"></div>
+						</div>
+					</div>
+				</div>
+				
+				<!-- Right Column -->
+				<div class="col-lg-7 mb-4">
+					<!-- Summary of Values -->
+					<div class="card shadow border-light-subtle mb-4">
+						<div class="card-body">
+							
+							<h6 class="mb-3 text-success fw-bold">Resumo Valores</h6>
+
+							<div class="table-responsive">
+								<table class="table table-sm w-100" width="100%" cellspacing="0">
+									<thead>
+										<tr class="table-success">
+											<th class="text-center">Multiplicador</th>
+											<th class="text-center">Vazamento(%)</th>
+											<th class="text-center">PIB(%)</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>Norte</td>
+											<td class="text-center">16%</td>
+											<td class="text-center">3.35%</td>
+										</tr>
+										<tr>
+											<td>Nordeste</td>
+											<td class="text-center">15%</td>
+											<td class="text-center">0.12%</td>
+										</tr>
+										<tr>
+											<td>Sudeste</td>
+											<td class="text-center">6%</td>
+											<td class="text-center">0.03%</td>
+										</tr>
+										<tr>
+											<td>Sul</td>
+											<td class="text-center">17%</td>
+											<td class="text-center">0.10%</td>
+										</tr>
+										<tr>
+											<td>Centro-Oeste</td>
+											<td class="text-center">32%</td>
+											<td class="text-center">0.14%</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+
+					<!-- Top Sectors -->
+					<div class="card shadow border-light-subtle">
+						<div class="card-body">
+							
+							<h6 class="mb-3 text-success fw-bold">Top Setores</h6>
+
+							<div class="table-responsive">
+								<table class="table table-sm w-100" cellspacing="0">
+									<thead>
+										<tr class="table-success">
+											<th class="text-center">Setores</th>
+											<th class="text-center w-25">PIB Novo</th>
+											<th class="text-center">Crescimento(%)</th>
+											<th class="text-center">Região</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>Administração pública, defesa e seguridade social</td>
+											<td>
+												<div class="row no-gutters align-items-center">
+													<div class="col">
+														<div class="progress me-2" style="height: 8px">
+															<div class="progress-bar bg-danger" role="progressbar" style="width: 8%" aria-valuenow="8" aria-valuemin="0" aria-valuemax="8"></div>
+														</div>
+													</div>
+													<div class="col-auto">
+														<span>50%</span>
+													</div>
+												</div>
+											</td>
+											<td class="text-center">3.35%</td>
+											<td>Centro-Oeste</td>
+										</tr>
+										<tr>
+											<td>Comércio por atacado e a varejo, exceto veículos automotores</td>
+											<td>
+												<div class="row no-gutters align-items-center">
+													<div class="col">
+														<div class="progress me-2" style="height: 8px">
+															<div class="progress-bar bg-danger" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+														</div>
+													</div>
+													<div class="col-auto">
+														<span>50%</span>
+													</div>
+												</div>
+											</td>
+											<td class="text-center">3.35%</td>
+											<td>Centro-Oeste</td>
+										</tr>
+										<tr>
+											<td>Administração pública, defesa e seguridade social</td>
+											<td>
+												<div class="row no-gutters align-items-center">
+													<div class="col">
+														<div class="progress me-2" style="height: 8px">
+															<div class="progress-bar bg-danger" role="progressbar" style="width: 35%" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+														</div>
+													</div>
+													<div class="col-auto">
+														<span>35%</span>
+													</div>
+												</div>
+											</td>
+											<td class="text-center">3.35%</td>
+											<td>Centro-Oeste</td>
+										</tr>
+										<tr>
+											<td>Administração pública, defesa e seguridade social</td>
+											<td>
+												<div class="row no-gutters align-items-center">
+													<div class="col">
+														<div class="progress me-2" style="height: 8px">
+															<div class="progress-bar bg-danger" role="progressbar" style="width: 93%" aria-valuenow="93" aria-valuemin="0" aria-valuemax="100"></div>
+														</div>
+													</div>
+													<div class="col-auto">
+														<span>93%</span>
+													</div>
+												</div>
+											</td>
+											<td class="text-center">3.35%</td>
+											<td>Centro-Oeste</td>
+										</tr>
+										<tr>
+											<td>Administração pública, defesa e seguridade social</td>
+											<td>
+												<div class="row no-gutters align-items-center">
+													<div class="col">
+														<div class="progress me-2" style="height: 8px">
+															<div class="progress-bar bg-danger" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+														</div>
+													</div>
+													<div class="col-auto">
+														<span>50%</span>
+													</div>
+												</div>
+											</td>
+											<td class="text-center">3.35%</td>
+											<td>Centro-Oeste</td>
+										</tr>
+										<tr>
+											<td>Administração pública, defesa e seguridade social</td>
+											<td>
+												<div class="row no-gutters align-items-center">
+													<div class="col">
+														<div class="progress me-2" style="height: 8px">
+															<div class="progress-bar bg-danger" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+														</div>
+													</div>
+													<div class="col-auto">
+														<span>50%</span>
+													</div>
+												</div>
+											</td>
+											<td class="text-center">3.35%</td>
+											<td>Centro-Oeste</td>
+										</tr>
+										<tr>
+											<td>Administração pública, defesa e seguridade social</td>
+											<td>
+												<div class="row no-gutters align-items-center">
+													<div class="col">
+														<div class="progress me-2" style="height: 8px">
+															<div class="progress-bar bg-danger" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+														</div>
+													</div>
+													<div class="col-auto">
+														<span>50%</span>
+													</div>
+												</div>
+											</td>
+											<td class="text-center">3.35%</td>
+											<td>Centro-Oeste</td>
+										</tr>
+										<tr>
+											<td>Administração pública, defesa e seguridade social</td>
+											<td>
+												<div class="row no-gutters align-items-center">
+													<div class="col">
+														<div class="progress me-2" style="height: 8px">
+															<div class="progress-bar bg-danger" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+														</div>
+													</div>
+													<div class="col-auto">
+														<span>50%</span>
+													</div>
+												</div>
+											</td>
+											<td class="text-center">3.35%</td>
+											<td>Centro-Oeste</td>
+										</tr>
+										<tr>
+											<td>Administração pública, defesa e seguridade social</td>
+											<td>
+												<div class="row no-gutters align-items-center">
+													<div class="col">
+														<div class="progress me-2" style="height: 8px">
+															<div class="progress-bar bg-danger" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+														</div>
+													</div>
+													<div class="col-auto">
+														<span>50%</span>
+													</div>
+												</div>
+											</td>
+											<td class="text-center">3.35%</td>
+											<td>Centro-Oeste</td>
+										</tr>
+										<tr>
+											<td>Administração pública, defesa e seguridade social</td>
+											<td>
+												<div class="row no-gutters align-items-center">
+													<div class="col">
+														<div class="progress me-2" style="height: 8px">
+															<div class="progress-bar bg-danger" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+														</div>
+													</div>
+													<div class="col-auto">
+														<span>50%</span>
+													</div>
+												</div>
+											</td>
+											<td class="text-center">3.35%</td>
+											<td>Centro-Oeste</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Footer -->
+		<footer class="bg-light text-center py-2 mt-auto">
+			<small class="m-0">© 2024 Instituto de Pesquisa Econômica Aplicada - Ipea</small>
+		</footer>
+	</div>
+
+	<!-- JQuery -->
+	<script src="static/js/jquery/jquery-3.7.1.min.js"></script>
+
+	<!-- Bootstrap 5 -->
+	<script src="static/js/bootstrap/bootstrap.bundle.min.js"></script>
+	<script src="static/js/script.js"></script>
+
+	<!-- Bootstrap Select (Multiple) -->
+	<script src="static/js/bootstrap-select/bootstrap-select.js"></script>
+	</form>
+</body>
+</html>

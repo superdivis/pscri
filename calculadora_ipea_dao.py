@@ -7,120 +7,187 @@
 # | Email: alexandresantoscompunb@gmail.com                     |
 # +-------------------------------------------------------------+----------------------------------------------------------
 
-import pandas as pd
-import numpy as np
+import os.path
+import sqlite3
 
-###################
-# Lê execel
-# Registro da Análise da Matriz de Insumo Produto
-def le_arquivo(file_path):
-  ret = pd.read_excel(file_path, sheet_name='N')
-  return ret
 
-####################
-#Preparação da Matriz de insumo produto por Região (68 x 68 x 5)
-def prepara_matriz(arquivo_dados, n_col, n_lin):
-  matriz = np.zeros((n_col, n_lin), dtype=np.float64)
-  #print("Lendo arquivo...")
-  #print(float(df.iloc[1][343]))
-  for col in range(n_col):
-      #print ("Lendo registro da coluna:" , str(col)) 
-      for lin in range (n_lin):
-          #print ("Lendo registro da linha:" , str(lin)) 
-          #print(df.iloc[lin+1][col+2])
-          matriz[lin, col] = float(arquivo_dados.iloc[lin+1][col+2])
-    #print (matriz_insumo_produto_regioes[0:4,0:4])
-  return matriz
+#+---------------------------+
+#| Retorna conexão de banco  |
+#+---------------------------+
+def retorna_conexao():
+  BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+  db_path = os.path.join(BASE_DIR, "pscr.db")
+  conn = sqlite3.connect(db_path)  
+  return conn
 
-####################
-#Preparação do vetor vy
-def prepara_vetor_y(arquivo_dados, n_col):
-  vy = np.zeros((n_col,1), dtype=np.float64)
-  for lin in range (n_col):
-    #print(float(df.iloc[lin+1][max_col+2]))
-    vy[lin,0] =  float(arquivo_dados.iloc[lin+1][n_col+3])
-  return vy
+#+---------------------------------------------------------------------------------------------------------------
+#
+#    ********  ********  **        ********   ******   **********
+#   **//////  /**/////  /**       /**/////   **////** /////**/// 
+#  /**        /**       /**       /**       **    //      /**    
+#  /********* /*******  /**       /******* /**            /**    
+#  ////////** /**////   /**       /**////  /**            /**    
+#         /** /**       /**       /**      //**    **     /**    
+#   ********  /******** /******** /******** //******      /**    
+#  ////////   ////////  ////////  ////////   //////       //   
+#
+#+--------------------------------+
+#| Script de leitura das Regioes  |
+#+--------------------------------+
+def retorna_regioes():
+  conn = retorna_conexao()
+  cur = conn.cursor()
+  str_select = 'select * from regioes'
+  cur.execute(str_select)
+  rows=cur.fetchall()
+  return rows
 
-####################
-#Preparação do vetor vx
-def prepara_vetor_x(matriz, vy):
-  print("Criando o vetor vx - Matriz X vy")
-  vx = np.dot(matriz, vy)
-  return vx
-  
-####################
-#Lendo o vetor pib
-def ler_vetor_pib(arquivo, n_col, n_lin):
-  print("Lendo arquivo  para o vetor pib...")
-  pib = np.zeros((340,1), dtype=np.float64)
-  for lin in range (n_lin):
-    #print(float(df.iloc[lin+1][max_col+2]))
-    pib[lin,0] =  float(arquivo.iloc[lin+1][n_col+7])
-  return pib
+#+----------------------------------+
+#| Script de leitura das Atividades |
+#+----------------------------------+
+def retorna_atividades():
+  conn = retorna_conexao()
+  cur = conn.cursor()
+  str_select = 'select * from atividades'
+  cur.execute(str_select)
+  rows=cur.fetchall()
+  return rows
 
-####################
-#Cálculo do vetor v
-def calcular_vetor_v(pib, vx):
-  #print("Calculando vetor v...")
-  vv = []
-  for i in range(len(pib)):
-      tmp = pib[i]/vx[i]
-      vv.append(tmp)
-  return vv
+#+----------------------------------+
+#| Script da Matriz Insumo Produto  |
+#+----------------------------------+
+def retorna_matriz():
+  conn = retorna_conexao()
+  cur = conn.cursor()
+  str_select = 'select * from matriz'
+  cur.execute(str_select)
+  rows=cur.fetchall()
+  return rows
 
-####################
-#Preparar delta y
-def preparar_delta_y(n_col, valor_choque, setor):
-  delta_y = np.zeros((n_col,1), dtype=np.float64)
-  delta_y[setor,0] = valor_choque
-  return delta_y
+#+-------------------------------------+
+#| Script para obter informação de PIB |
+#+-------------------------------------+
+def retorna_pib():
+  conn = retorna_conexao()
+  cur = conn.cursor()
+  str_select = 'select * from pib'
+  cur.execute(str_select)
+  rows=cur.fetchall()
+  return rows
 
-####################
-#Preparar delta x
-def preparar_delta_x(matriz, delta_y):
-  delta_x = np.dot(matriz, delta_y)
-  return delta_x
+#+-----------------------------+
+#| Script para obter o vetor y |
+#+-----------------------------+
+def retorna_vetor_y():
+  conn = retorna_conexao()
+  cur = conn.cursor()
+  str_select = 'select * from vetor_y'
+  cur.execute(str_select)
+  rows=cur.fetchall()
+  return rows
 
-####################
-#Preparar delta pib
-def calcular_delta_pib(pib,vv, delta_x):
-  delta_pib = []
-  for i in range(len(pib)):
-    tmp = vv[i]*delta_x[i]
-    delta_pib.append(tmp)
-  return delta_pib
+#+-----------------------------+
+#| Script para obter siumulacao|
+#+-----------------------------+
+def obter_simulacao_id(id):
+  conn = retorna_conexao()
+  cur = conn.cursor()
+  str_select = 'select s.id_simulacao, s.nome , a.id , a.descricaoatividade, r.id, r.nome, sdy.valor from simulacao_delta_y sdy inner join simulacao s on s.id_simulacao = sdy.id_simulacao inner join atividades a on a.id = sdy.id_atividade inner join regioes r on r.id = sdy.id_regiao where sdy.id_simulacao = ' + str(id)
+  cur.execute(str_select)
+  rows=cur.fetchall()
+  return rows
 
-####################
-#Preparar novo pib
-def calcular_novo_pib(pib, delta_pib):
-  novo_pib = []
-  for i in range(len(pib)):
-    tmp = pib[i]+delta_pib[i]
-    novo_pib.append(tmp)
-  return novo_pib
+#+--------------------------------+
+#| Script de nível territorial    |
+#+--------------------------------+
+def retorna_nivel_territorial():
+  conn = retorna_conexao()
+  cur = conn.cursor()
+  str_select = 'select * from nivel_territorial'
+  cur.execute(str_select)
+  rows=cur.fetchall()
+  return rows
 
-####################
-# Calcular total pib regional
-# (pib atual / pib novo)
-def calcular_total_pib_reional(pib, indice_inicial, indice_final):
-  #print(indice_inicial)
-  #print(indice_final)
-  #print( str(pib[indice_inicial]) , str(pib[indice_final]) )
-  pib_regional = pib[indice_inicial:indice_final+1]
-  return sum (pib_regional)
+#+------------------------------+
+#| Script para obter siumulacoes|
+#+------------------------------+
+def listar_simulacoes():
+  conn = retorna_conexao()
+  cur = conn.cursor()
+  str_select = 'select * from simulacao' 
+  cur.execute(str_select)
+  rows=cur.fetchall()
+  return rows
 
-####################
-# Vincula setores e valores de PIB
-# (setor / pib atual / pib novo)
-def vincula_setores_pibs(atividades, pib_inicial, pib_atual, deslocamento_territorial):
-  i = deslocamento_territorial
-  indice_atividade = 0
-  v = [atividades[indice_atividade], int(round(pib_inicial[i][0])) , int(round(pib_atual[i][0]))]
-  df = pd.DataFrame([v])
-  df.columns = ['atividade','pib','pib_atual']
-  for ativ in range(len(atividades)-1):
-    i = i + 1
-    indice_atividade = indice_atividade + 1
-    vetor = [ atividades[indice_atividade], int(round(pib_inicial[i][0])) , int(round(pib_atual[i][0])) ]
-    df.loc[len(df.index)] = vetor
-  return df
+
+#+---------------------------------------------------------------------------------------------------------------------------------------------
+#   *******    ********  **        ********  **********  ********
+#  /**////**  /**/////  /**       /**/////  /////**///  /**///// 
+#  /**    /** /**       /**       /**           /**     /**      
+#  /**    /** /*******  /**       /*******      /**     /******* 
+#  /**    /** /**////   /**       /**////       /**     /**////  
+#  /**    **  /**       /**       /**           /**     /**      
+#  /*******   /******** /******** /********     /**     /********
+#  ///////    ////////  ////////  ////////      //      //////// 
+#
+#+------------------------------+
+#| Script para excluir siumulacao|
+#+-------------------------------+
+def excluir_simulacao(id):
+  conn = retorna_conexao()
+  cur = conn.cursor()
+  str_select = 'DELETE FROM simulacao_delta_y WHERE id_simulacao = ' + str(id)  + '; commit;'
+  str_select = str_select + 'DELETE FROM simulacao WHERE id_simulacao = ' + str(id)  + '; commit;' 
+  cur.execute(str_select)
+  return 200
+
+
+#+--------------------------------------------------------------------------------------------------------------
+#   **  ****     **   ********  ********  *******    **********
+#  /** /**/**   /**  **//////  /**/////  /**////**  /////**/// 
+#  /** /**//**  /** /**        /**       /**   /**      /**    
+#  /** /** //** /** /********* /*******  /*******       /**    
+#  /** /**  //**/** ////////** /**////   /**///**       /**    
+#  /** /**   //****        /** /**       /**  //**      /**    
+#  /** /**    //***  ********  /******** /**   //**     /**    
+#  //  //      ///  ////////   ////////  //     //      //     
+#+------------------------------------------------------+
+#| Script de Inserção de uma simulação                  |
+#+------------------------------------------------------+
+def inserir_simulacao(nome_simulacao, dados_simulacao):
+  conn = retorna_conexao()
+  cur = conn.cursor()
+  str_insert = "INSERT INTO simulacao (id_simulacao, nome) VALUES(nextval("+ "'" +'simulacao_id_simulacao_seq' +"'" + "::regclass), " + "'" + nome_simulacao + "'" + "); commit;"
+  cur.execute(str_insert)
+  cur.execute('SELECT LASTVAL()')
+  lastid = cur.fetchone()[0]
+  for dt in dados_simulacao:
+    str_insert = "INSERT INTO simulacao_delta_y (id, id_simulacao, id_atividade, id_regiao, valor) VALUES(nextval(" + "'" + "simulacao_delta_y_id_seq" + "'" + "::regclass) , " + str(lastid) + "," + str(dt['id_atividade']) + "," + str(dt['id_regiao']) + "," + str(dt['valor']) +"); commit;"
+    cur.execute(str_insert)
+  conn.commit()
+  conn.close()
+  return lastid
+
+#+-------------------------------------------------------------------------------------------------------------
+#
+#   **     **  *******   *******        **     **********  ********
+#  /**    /** /**////** /**////**      ****   /////**///  /**///// 
+#  /**    /** /**   /** /**    /**    **//**      /**     /**      
+#  /**    /** /*******  /**    /**   **  //**     /**     /******* 
+#  /**    /** /**////   /**    /**  **********    /**     /**////  
+#  /**    /** /**       /**    **  /**//////**    /**     /**      
+#  //*******  /**       /*******   /**     /**    /**     /********
+#   ///////   //        ///////    //      //     //      //////// 
+#+------------------------------------+
+#|+ Script de Update de uma simulação |
+#+------------------------------------+
+def atualizar_simulacao(id_simulacao, nome_simulacao, dados_simulacao):
+  conn = retorna_conexao()
+  cur = conn.cursor()
+  str_insert = "UPDATE simulacao SET nome = " + "'" + nome_simulacao + "'" + " WHERE id_simulacao = " + str(id_simulacao) + ";"
+  cur.execute(str_insert)
+  for dt in dados_simulacao:
+    str_insert = "UPDATE simulacao_delta_y SET valor =" + str(dt['valor']) + " WHERE id_simulacao = " + str(id_simulacao) + " and id_atividade =" + str(dt['id_atividade']) + " and id_regiao = " + str(dt['id_regiao']) + ";"
+    cur.execute(str_insert)
+  conn.commit()
+  conn.close()
