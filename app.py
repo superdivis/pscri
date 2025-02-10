@@ -5,7 +5,6 @@
 # | Data finalização: xx/xx/xx                                  |
 # | Autor: Alexandre Silva dos Santos                           |
 # | Email: alexandresantoscompunb@gmail.com                     |
-
 # +-------------------------------------------------------------+----------------------------------------------------------
 
 #Serviços da calculadora
@@ -236,4 +235,4 @@ def deletar_jogador(id_simulacao):
     return jsonify({'resultado': True})
 
 if __name__ == '__main__':
-    app.run(debug=True, host=ip,port=5000)
+    app.run(debug=True, host=ip)
