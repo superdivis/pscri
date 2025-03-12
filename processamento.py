@@ -8,7 +8,7 @@
 # +-------------------------------------------------------------+----------------------------------------------------------
 
 from calculadora_ipea_dao import * 
-import pandas as pd
+#import pandas as pd
 import numpy as np
 
 ####################
@@ -116,7 +116,7 @@ def calcular_total_pib_regional(pib, indice_inicial, indice_final):
 ####################
 # Vincula setores e valores de PIB
 # (setor / pib atual / pib novo)
-def vincula_setores_pibs(atividades, pib_inicial, pib_atual, deslocamento_territorial):
+'''def vincula_setores_pibs(atividades, pib_inicial, pib_atual, deslocamento_territorial):
   i = deslocamento_territorial
   indice_atividade = 0
   v = [atividades[indice_atividade], int(round(pib_inicial[i][0])) , int(round(pib_atual[i][0]))]
@@ -128,7 +128,8 @@ def vincula_setores_pibs(atividades, pib_inicial, pib_atual, deslocamento_territ
     vetor = [ atividades[indice_atividade], int(round(pib_inicial[i][0])) , int(round(pib_atual[i][0])) ]
     df.loc[len(df.index)] = vetor
   return df
-  
+'''
+
 ####################
 # Vincula setores e valores de PIB
 # (setor / pib atual / pib novo)
