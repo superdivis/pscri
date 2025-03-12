@@ -16,8 +16,8 @@ import sqlite3
 def retorna_conexao():
   #BASE_DIR = os.path.dirname(os.path.abspath(__file__))
   #db_path = os.path.join(BASE_DIR, "pscr.db")
-  #conn = sqlite3.connect(db_path)  
-  conn = sqlite3.connect("pscr.db")  
+  #conn = sqlite3.connect("pscr.db")  
+  conn = sqlite3.connect("E:/Alex/Livano/IPEA/calculadora_estrela/app_deploy/pscr.db")  
   return conn
 
 #+---------------------------------------------------------------------------------------------------------------
@@ -37,7 +37,7 @@ def retorna_conexao():
 def retorna_regioes():
   conn = retorna_conexao()
   cur = conn.cursor()
-  str_select = 'select * from regioes'
+  str_select = 'select * from regioes order by id'
   cur.execute(str_select)
   rows=cur.fetchall()
   return rows
@@ -119,6 +119,16 @@ def listar_simulacoes():
   rows=cur.fetchall()
   return rows
 
+#+------------------------------+
+#| Script para obter siumulacoes|
+#+------------------------------+
+def listar_sistemas():
+  conn = retorna_conexao()
+  cur = conn.cursor()
+  str_select = 'select * from sistema' 
+  cur.execute(str_select)
+  rows=cur.fetchall()
+  return rows
 
 #+---------------------------------------------------------------------------------------------------------------------------------------------
 #   *******    ********  **        ********  **********  ********

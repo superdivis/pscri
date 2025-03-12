@@ -8,6 +8,7 @@
 # +-------------------------------------------------------------+----------------------------------------------------------
 
 from calculadora_ipea_dao import * 
+import pandas as pd
 import numpy as np
 
 ####################
@@ -134,3 +135,22 @@ def vincula_setores_pibs(atividades, pib_inicial, pib_atual, deslocamento_territ
 def aplicar_simulacao_choque(delta_y):
   for dt in delta_y:
     str_insert = "INSERT INTO pscr.simulacao_delta_y (id, id_simulacao, id_atividade, id_regiao, valor) VALUES(nextval(" + "'" + "pscr.simulacao_delta_y_id_seq" + "'" + "::regclass) , " + str(lastid) + "," + str(dt['id_atividade']) + "," + str(dt['id_regiao']) + "," + str(dt['valor']) +"); commit;"
+
+####################
+# Monta novo delta_x com base nas listas de entrada
+# (delta_x_n,delta_x_ne,delta_x_se,delta_x_s,delta_x_co)
+def monta_delta_x (x1,x2,x3,x4,x5):
+  x_tmp = []
+  for i in x1:
+    x_tmp.append(i)
+  for i in x2:
+    x_tmp.append(i)
+  for i in x3:
+    x_tmp.append(i)
+  for i in x4:
+    x_tmp.append(i)
+  for i in x5:
+    x_tmp.append(i)
+  return x_tmp
+
+  

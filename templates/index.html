@@ -429,25 +429,25 @@
 			</button>
 
 			<div class="collapse navbar-collapse p-lg-0" id="navbarSupportedContent">
-				<select class="selectpicker my-3 my-lg-0 me-lg-3 w-100 w-lg-auto" multiple title="Selecione nível territorial" data-live-search="false">
-					<option value="1">One</option>
+				<select id="sel_nv_territorial"  class="selectpicker my-3 my-lg-0 me-lg-3 w-100 w-lg-auto" title="Selecione nível territorial" data-live-search="false"></select>
+				<!--<option value="1">One</option>
 					<option value="2">Two</option>
 					<option value="3">Three</option>
-					<option value="4">Four</option>
+					<option value="4">Four</option> -->
 				</select>
 
-				<select class="selectpicker mb-3 mb-lg-0 me-lg-3 w-100 w-lg-auto" multiple title="Selecione região" data-live-search="false">
-					<option value="1">One</option>
+				<select id="sel_regioes" class="selectpicker mb-3 mb-lg-0 me-lg-3 w-100 w-lg-auto" multiple title="Selecione região" data-live-search="false">
+					<!--<option value="1">One</option>
 					<option value="2">Two</option>
 					<option value="3">Three</option>
-					<option value="4">Four</option>
+					<option value="4">Four</option> -->
 				</select>
 
-				<select class="selectpicker mb-3 mb-lg-0 me-lg-3 w-100 w-lg-auto" multiple title="Selecione sistema" data-live-search="false">
-					<option value="1">One</option>
+				<select id="sel_sistemas" class="selectpicker mb-3 mb-lg-0 me-lg-3 w-100 w-lg-auto" multiple title="Selecione sistema" data-live-search="false">
+					<!--<option value="1">One</option>
 					<option value="2">Two</option>
 					<option value="3">Three</option>
-					<option value="4">Four</option>
+					<option value="4">Four</option> -->
 				</select>
 
 				<button class="btn btn-outline-light mb-3 me-3 mb-lg-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasActivities" aria-controls="offcanvasActivities">
@@ -497,37 +497,43 @@
 							<h6 class="mb-3 text-success fw-bold">Resumo Valores</h6>
 
 							<div class="table-responsive">
-								<table class="table table-sm w-100" width="100%" cellspacing="0">
+								<table id = "tb_resumo" class="table table-sm w-100" width="100%" cellspacing="0">
 									<thead>
 										<tr class="table-success">
+											<th class="text-left">Região</th>
 											<th class="text-center">Multiplicador</th>
 											<th class="text-center">Vazamento(%)</th>
 											<th class="text-center">PIB(%)</th>
 										</tr>
 									</thead>
-									<tbody>
+									<tbody >
 										<tr>
 											<td>Norte</td>
+											<td class="text-center">1.26</td>
 											<td class="text-center">16%</td>
 											<td class="text-center">3.35%</td>
 										</tr>
 										<tr>
 											<td>Nordeste</td>
+											<td class="text-center">1.50</td>
 											<td class="text-center">15%</td>
 											<td class="text-center">0.12%</td>
 										</tr>
 										<tr>
 											<td>Sudeste</td>
+											<td class="text-center">1.71</td>
 											<td class="text-center">6%</td>
 											<td class="text-center">0.03%</td>
 										</tr>
 										<tr>
 											<td>Sul</td>
+											<td class="text-center">1.54</td>
 											<td class="text-center">17%</td>
 											<td class="text-center">0.10%</td>
 										</tr>
 										<tr>
 											<td>Centro-Oeste</td>
+											<td class="text-center">1.84</td>
 											<td class="text-center">32%</td>
 											<td class="text-center">0.14%</td>
 										</tr>
@@ -541,14 +547,15 @@
 					<div class="card shadow border-light-subtle">
 						<div class="card-body">
 							
-							<h6 class="mb-3 text-success fw-bold">Top Setores</h6>
+							<h6 class="mb-3 text-success fw-bold">Top Setores - PIB</h6>
 
 							<div class="table-responsive">
-								<table class="table table-sm w-100" cellspacing="0">
+								<table id='tb_top_setores' class="table table-sm w-100" cellspacing="0">
 									<thead>
 										<tr class="table-success">
 											<th class="text-center">Setores</th>
-											<th class="text-center w-25">PIB Novo</th>
+											<th class="text-center w-25">Participação</th>
+											<th class="text-center">&Delta;x</th>
 											<th class="text-center">Crescimento(%)</th>
 											<th class="text-center">Região</th>
 										</tr>

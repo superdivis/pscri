@@ -1,3 +1,4 @@
+var series;
 am5.ready(function() {
 
 // Create root element
@@ -7,7 +8,7 @@ var root = am5.Root.new("treemapdiv");
 // Set themes
 // https://www.amcharts.com/docs/v5/concepts/themes/
 root.setThemes([
-  am5themes_Animated.new(root)
+  am5themes_Animated.new(root)  
 ]);
 
 // Create wrapper container
@@ -21,9 +22,10 @@ var container = root.container.children.push(
 
 // Create series
 // https://www.amcharts.com/docs/v5/charts/hierarchy/#Adding
-var series = container.children.push(
-  am5hierarchy.Treemap.new(root, {
+series = container.children.push(
+    am5hierarchy.Treemap.new(root, {
     singleBranchOnly: false,
+    zoomable: true,
     downDepth: 1,
     upDepth: -1,
     initialDepth: 2,
@@ -35,9 +37,19 @@ var series = container.children.push(
   })
 );
 
+series.get("colors").set("colors", [
+  am5.color(0x095256),
+  am5.color(0x087f8c),
+  am5.color(0x5aaa95),
+  am5.color(0x86a873),
+  am5.color(0xbb9f06)
+]);
+
+
 series.rectangles.template.setAll({
   strokeWidth: 2
 });
+
 
 // Generate and set data
 // https://www.amcharts.com/docs/v5/charts/hierarchy/#Setting_data
@@ -66,7 +78,7 @@ var data = {
       children: [
         {
           name: "B1",
-          value: 135
+          value: 135,
         },
         {
           name: "B2",

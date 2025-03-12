@@ -16,8 +16,15 @@ window.addEventListener('load', function() {
 
     //Inicia Painel de simulações
     painel_simulacoes();
-
-    carregar_simulacao(2);
+    carrega_nivel_territorial();
+    carrega_regioes();
+    carrega_sistemas();
+    monta_resumo();
+    monta_top_setores(10);
+    pib_por_regiao_atividade();
+    pib_por_regiao_map();
+        
+    //carregar_simulacao(2);
 
     //Carregar painel de simulações
     btn_simulacoes.addEventListener("click", function(event) {
