@@ -17,7 +17,8 @@ def retorna_conexao():
   #BASE_DIR = os.path.dirname(os.path.abspath(__file__))
   #db_path = os.path.join(BASE_DIR, "pscr.db")
   #conn = sqlite3.connect("pscr.db")  
-  conn = sqlite3.connect("E:/Alex/Livano/IPEA/calculadora_estrela/app_deploy/pscr.db")  
+  #conn = sqlite3.connect("E:/Alex/Livano/IPEA/calculadora_estrela/app_deploy/pscr.db")  
+  conn = sqlite3.connect("pscr.db")  
   return conn
 
 #+---------------------------------------------------------------------------------------------------------------
