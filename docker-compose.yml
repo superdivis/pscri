@@ -1,0 +1,18 @@
+version: '3'
+services:
+  web:
+    build: ./app
+    expose:
+      - "5000"  # Expor apenas internamente no Docker (não mapeia no host)
+    volumes:
+      - ./app:/app
+    restart: always  # Garante que reinicia em caso de falha
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"  # Apenas Nginx é exposto ao host
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - web
