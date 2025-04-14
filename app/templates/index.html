@@ -103,10 +103,10 @@
 		</div>
 		<div class="offcanvas-body p-0">
 			<div class="text-center border-bottom p-3">
-				<button class="btn btn-outline-secondary btn-sm mb-3 mb-lg-0 me-2" type="button">
+				<button id="btnLimparTudo" class="btn btn-outline-secondary btn-sm mb-3 mb-lg-0 me-2" type="button">
 					<i class="fa-solid fa-trash me-2"></i>Limpar tudo
 				</button>
-				<button class="btn btn-outline-primary btn-sm mb-3 mb-lg-0 me-2" type="button">
+				<button id='btnAplicar' class="btn btn-outline-primary btn-sm mb-3 mb-lg-0 me-2" type="button">
 					<i class="fa-solid fa-check me-2"></i>Aplicar
 				</button>
 				<button class="btn btn-outline-success btn-sm mb-3 mb-lg-0" type="button" data-bs-toggle="modal" data-bs-target="#saveModal">
@@ -114,7 +114,7 @@
 				</button>
 			</div>
 			<div class="accordion accordion-flush" id="accordionChoque">
-				<div class="accordion-item">
+				<div class="accordion-item" id="rg_norte">
 					<h2 class="accordion-header">
 						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#norte" aria-expanded="false" aria-controls="flush-collapseOne">Norte</button>
 					</h2>
@@ -126,252 +126,1084 @@
 								</button>
 							</div>
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Agricultura, inclusive o apoio à agricultura e a pós-colheita</small></p>
+							<input id ="atividades_n_1" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Pecuária, inclusive o apoio à pecuária</small></p>
+							<input id ="atividades_n_2" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Produção florestal; pesca e aquicultura</small></p>
+							<input id ="atividades_n_3" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Extração de carvão mineral e de minerais não-metálicos</small></p>
+							<input id ="atividades_n_4" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Extração de petróleo e gás, inclusive as atividades de apoio</small></p>
+							<input id ="atividades_n_5" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Extração de minério de ferro, inclusive beneficiamentos e a aglomeração</small></p>
+							<input id ="atividades_n_6" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Extração de minerais metálicos não-ferrosos, inclusive beneficiamentos</small></p>
+							<input id ="atividades_n_7" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Abate e produtos de carne, inclusive os produtos do laticínio e da pesca</small></p>
+							<input id ="atividades_n_8" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Fabricação e refino de açúcar</small></p>
+							<input id ="atividades_n_9" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Outros produtos alimentares</small></p>
+							<input id ="atividades_n_10" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Fabricação de bebidas</small></p>
+							<input id ="atividades_n_11" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Fabricação de produtos do fumo</small></p>
+							<input id ="atividades_n_12" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Fabricação de produtos têxteis</small></p>
+							<input id ="atividades_n_13" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Confecção de artefatos do vestuário e acessórios</small></p>
+							<input id ="atividades_n_14" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Fabricação de calçados e de artefatos de couro</small></p>
+							<input id ="atividades_n_15" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Fabricação de produtos da madeira</small></p>
+							<input id ="atividades_n_16" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Fabricação de celulose, papel e produtos de papel</small></p>
+							<input id ="atividades_n_17" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Impressão e reprodução de gravações</small></p>
+							<input id ="atividades_n_18" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Refino de petróleo e coquerias</small></p>
+							<input id ="atividades_n_19" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Fabricação de biocombustíveis</small></p>
+							<input id ="atividades_n_20" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Fabricação de químicos orgânicos e inorgânicos, resinas e elastômeros</small></p>
+							<input id ="atividades_n_21" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Fabricação de defensivos, desinfestantes, tintas e químicos diversos</small></p>
+							<input id ="atividades_n_22" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Fabricação de produtos de limpeza, cosméticos/perfumaria e higiene pessoal</small></p>
+							<input id ="atividades_n_23" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Fabricação de produtos farmoquímicos e farmacêuticos</small></p>
+							<input id ="atividades_n_24" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Fabricação de produtos de borracha e de material plástico</small></p>
+							<input id ="atividades_n_25" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Fabricação de produtos de minerais não-metálicos</small></p>
+							<input id ="atividades_n_26" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Produção de ferro-gusa/ferroligas, siderurgia e tubos de aço sem costura</small></p>
+							<input id ="atividades_n_27" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Metalurgia de metais não-ferosos e a fundição de metais</small></p>
+							<input id ="atividades_n_28" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Fabricação de produtos de metal, exceto máquinas e equipamentos</small></p>
+							<input id ="atividades_n_29" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Fabricação de equipamentos de informática, produtos eletrônicos e ópticos</small></p>
+							<input id ="atividades_n_30" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Fabricação de máquinas e equipamentos elétricos</small></p>
+							<input id ="atividades_n_31" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Fabricação de máquinas e equipamentos mecânicos</small></p>
+							<input id ="atividades_n_32" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Fabricação de automóveis, caminhões e ônibus, exceto peças</small></p>
+							<input id ="atividades_n_33" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Fabricação de peças e acessórios para veículos automotores</small></p>
+							<input id ="atividades_n_34" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Fabricação de outros equipamentos de transporte, exceto veículos automotores</small></p>
+							<input id ="atividades_n_35" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Fabricação de móveis e de produtos de indústrias diversas</small></p>
+							<input id ="atividades_n_36" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Manutenção, reparação e instalação de máquinas e equipamentos</small></p>
+							<input id ="atividades_n_37" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Energia elétrica, gás natural e outras utilidades</small></p>
+							<input id ="atividades_n_38" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Água, esgoto e gestão de resíduos</small></p>
+							<input id ="atividades_n_39" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Construção</small></p>
+							<input id ="atividades_n_40" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Comércio e reparação de veículos automotores e motocicletas</small></p>
+							<input id ="atividades_n_41" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Comércio por atacado e a varejo, exceto veículos automotores</small></p>
+							<input id ="atividades_n_42" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Transporte terrestre</small></p>
+							<input id ="atividades_n_43" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Transporte aquaviário</small></p>
+							<input id ="atividades_n_44" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Transporte aéreo</small></p>
+							<input id ="atividades_n_45" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Armazenamento, atividades auxiliares dos transportes e correio</small></p>
+							<input id ="atividades_n_46" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Alojamento</small></p>
+							<input id ="atividades_n_47" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Alimentação</small></p>
+							<input id ="atividades_n_48" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Edição e edição integrada à impressão</small></p>
+							<input id ="atividades_n_49" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Atividades de televisão, rádio, cinema e  gravação/edição de som e imagem</small></p>
+							<input id ="atividades_n_50" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Telecomunicações</small></p>
+							<input id ="atividades_n_51" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Desenvolvimento de sistemas e outros serviços de informação</small></p>
+							<input id ="atividades_n_52" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Intermediação financeira, seguros e previdência complementar</small></p>
+							<input id ="atividades_n_53" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Atividades imobiliárias</small></p>
+							<input id ="atividades_n_54" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Atividades jurídicas, contábeis, consultoria e sedes de empresas </small></p>
+							<input id ="atividades_n_55" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Serviços de arquitetura, engenharia, testes/análises técnicas e P & D</small></p>
+							<input id ="atividades_n_56"class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Outras atividades profissionais, científicas e técnicas</small></p>
+							<input id ="atividades_n_57" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Aluguéis não-imobiliários e gestão de ativos de propriedade intelectual</small></p>
+							<input id ="atividades_n_58" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Outras atividades administrativas e serviços complementares</small></p>
+							<input id ="atividades_n_59" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Atividades de vigilância, segurança e investigação</small></p>
+							<input id ="atividades_n_60" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Administração pública, defesa e seguridade social</small></p>
+							<input id ="atividades_n_61" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Educação pública</small></p>
+							<input id ="atividades_n_62" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Educação privada</small></p>
+							<input id ="atividades_n_63" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Saúde pública</small></p>
+							<input id ="atividades_n_64"  class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Saúde privada</small></p>
+							<input id ="atividades_n_65" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Atividades artísticas, criativas e de espetáculos</small></p>
+							<input id ="atividades_n_66" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Organizações associativas e outros serviços pessoais</small></p>
+							<input id ="atividades_n_67" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 							<hr>
-							<p class="lh-sm mb-2"><small>Atividade lorem ipsum dolor site amet bla bla bla bla lorem ispum 01</small></p>
-							<input class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<p class="lh-sm mb-2"><small>Serviços domésticos</small></p>
+							<input id ="atividades_n_68" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 						</div>
 					</div>
 				</div>
-				<div class="accordion-item">
+				<div class="accordion-item" id="rg_nordeste">
 					<h2 class="accordion-header">
 						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#nordeste" aria-expanded="false" aria-controls="nordeste">Nordeste</button>
 					</h2>
 					<div id="nordeste" class="accordion-collapse collapse" data-bs-parent="#accordionChoque">
 						<div class="accordion-body">
-							Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the second item's accordion body. Let's imagine this being filled with some actual content.
+							<div class="text-center">
+								<button class="btn btn-outline-secondary btn-sm mb-3 mb-lg-0" type="button">
+									<i class="fa-solid fa-trash me-2"></i>Limpar região
+								</button>
+							</div>
+							<hr>
+							<p class="lh-sm mb-2"><small>Agricultura, inclusive o apoio à agricultura e a pós-colheita</small></p>
+							<input id ="atividades_ne_1" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Pecuária, inclusive o apoio à pecuária</small></p>
+							<input id ="atividades_ne_2" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Produção florestal; pesca e aquicultura</small></p>
+							<input id ="atividades_ne_3" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Extração de carvão mineral e de minerais não-metálicos</small></p>
+							<input id ="atividades_ne_4" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Extração de petróleo e gás, inclusive as atividades de apoio</small></p>
+							<input id ="atividades_ne_5" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Extração de minério de ferro, inclusive beneficiamentos e a aglomeração</small></p>
+							<input id ="atividades_ne_6" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Extração de minerais metálicos não-ferrosos, inclusive beneficiamentos</small></p>
+							<input id ="atividades_ne_7" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Abate e produtos de carne, inclusive os produtos do laticínio e da pesca</small></p>
+							<input id ="atividades_ne_8" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação e refino de açúcar</small></p>
+							<input id ="atividades_ne_9" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Outros produtos alimentares</small></p>
+							<input id ="atividades_ne_10" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de bebidas</small></p>
+							<input id ="atividades_ne_11" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de produtos do fumo</small></p>
+							<input id ="atividades_ne_12" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de produtos têxteis</small></p>
+							<input id ="atividades_ne_13" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Confecção de artefatos do vestuário e acessórios</small></p>
+							<input id ="atividades_ne_14" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de calçados e de artefatos de couro</small></p>
+							<input id ="atividades_ne_15" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de produtos da madeira</small></p>
+							<input id ="atividades_ne_16" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de celulose, papel e produtos de papel</small></p>
+							<input id ="atividades_ne_17" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Impressão e reprodução de gravações</small></p>
+							<input id ="atividades_ne_18" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Refino de petróleo e coquerias</small></p>
+							<input id ="atividades_ne_19" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de biocombustíveis</small></p>
+							<input id ="atividades_ne_20" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de químicos orgânicos e inorgânicos, resinas e elastômeros</small></p>
+							<input id ="atividades_ne_21" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de defensivos, desinfestantes, tintas e químicos diversos</small></p>
+							<input id ="atividades_ne_22" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de produtos de limpeza, cosméticos/perfumaria e higiene pessoal</small></p>
+							<input id ="atividades_ne_23" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de produtos farmoquímicos e farmacêuticos</small></p>
+							<input id ="atividades_ne_24" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de produtos de borracha e de material plástico</small></p>
+							<input id ="atividades_ne_25" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de produtos de minerais não-metálicos</small></p>
+							<input id ="atividades_ne_26" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Produção de ferro-gusa/ferroligas, siderurgia e tubos de aço sem costura</small></p>
+							<input id ="atividades_ne_27" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Metalurgia de metais não-ferosos e a fundição de metais</small></p>
+							<input id ="atividades_ne_28" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de produtos de metal, exceto máquinas e equipamentos</small></p>
+							<input id ="atividades_ne_29" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de equipamentos de informática, produtos eletrônicos e ópticos</small></p>
+							<input id ="atividades_ne_30" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de máquinas e equipamentos elétricos</small></p>
+							<input id ="atividades_ne_31" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de máquinas e equipamentos mecânicos</small></p>
+							<input id ="atividades_ne_32" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de automóveis, caminhões e ônibus, exceto peças</small></p>
+							<input id ="atividades_ne_33" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de peças e acessórios para veículos automotores</small></p>
+							<input id ="atividades_ne_34" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de outros equipamentos de transporte, exceto veículos automotores</small></p>
+							<input id ="atividades_ne_35" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de móveis e de produtos de indústrias diversas</small></p>
+							<input id ="atividades_ne_36" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Manutenção, reparação e instalação de máquinas e equipamentos</small></p>
+							<input id ="atividades_ne_37" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Energia elétrica, gás natural e outras utilidades</small></p>
+							<input id ="atividades_ne_38" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Água, esgoto e gestão de resíduos</small></p>
+							<input id ="atividades_ne_39" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Construção</small></p>
+							<input id ="atividades_ne_40" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Comércio e reparação de veículos automotores e motocicletas</small></p>
+							<input id ="atividades_ne_41" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Comércio por atacado e a varejo, exceto veículos automotores</small></p>
+							<input id ="atividades_ne_42" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Transporte terrestre</small></p>
+							<input id ="atividades_ne_43" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Transporte aquaviário</small></p>
+							<input id ="atividades_ne_44" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Transporte aéreo</small></p>
+							<input id ="atividades_ne_45" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Armazenamento, atividades auxiliares dos transportes e correio</small></p>
+							<input id ="atividades_ne_46" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Alojamento</small></p>
+							<input id ="atividades_ne_47" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Alimentação</small></p>
+							<input id ="atividades_ne_48" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Edição e edição integrada à impressão</small></p>
+							<input id ="atividades_ne_49" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividades de televisão, rádio, cinema e  gravação/edição de som e imagem</small></p>
+							<input id ="atividades_ne_50" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Telecomunicações</small></p>
+							<input id ="atividades_ne_51" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Desenvolvimento de sistemas e outros serviços de informação</small></p>
+							<input id ="atividades_ne_52" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Intermediação financeira, seguros e previdência complementar</small></p>
+							<input id ="atividades_ne_53" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividades imobiliárias</small></p>
+							<input id ="atividades_ne_54" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividades jurídicas, contábeis, consultoria e sedes de empresas </small></p>
+							<input id ="atividades_ne_55" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Serviços de arquitetura, engenharia, testes/análises técnicas e P & D</small></p>
+							<input id ="atividades_ne_56"class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Outras atividades profissionais, científicas e técnicas</small></p>
+							<input id ="atividades_ne_57" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Aluguéis não-imobiliários e gestão de ativos de propriedade intelectual</small></p>
+							<input id ="atividades_ne_58" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Outras atividades administrativas e serviços complementares</small></p>
+							<input id ="atividades_ne_59" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividades de vigilância, segurança e investigação</small></p>
+							<input id ="atividades_ne_60" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Administração pública, defesa e seguridade social</small></p>
+							<input id ="atividades_ne_61" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Educação pública</small></p>
+							<input id ="atividades_ne_62" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Educação privada</small></p>
+							<input id ="atividades_ne_63" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Saúde pública</small></p>
+							<input id ="atividades_ne_64"  class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Saúde privada</small></p>
+							<input id ="atividades_ne_65" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividades artísticas, criativas e de espetáculos</small></p>
+							<input id ="atividades_ne_66" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Organizações associativas e outros serviços pessoais</small></p>
+							<input id ="atividades_ne_67" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Serviços domésticos</small></p>
+							<input id ="atividades_ne_68" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 						</div>
 					</div>
 				</div>
-				<div class="accordion-item">
-					<h2 class="accordion-header">
-						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#centroOeste" aria-expanded="false" aria-controls="centroOeste">Centro-Oeste</button>
-					</h2>
-					<div id="centroOeste" class="accordion-collapse collapse" data-bs-parent="#accordionChoque">
-						<div class="accordion-body">
-							Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.
-						</div>
-					</div>
-				</div>
-				<div class="accordion-item">
+				<div class="accordion-item" id="rg_sul" >
 					<h2 class="accordion-header">
 						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sul" aria-expanded="false" aria-controls="sul">Sul</button>
 					</h2>
 					<div id="sul" class="accordion-collapse collapse" data-bs-parent="#accordionChoque">
 						<div class="accordion-body">
-							Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.
+							<div class="text-center">
+								<button class="btn btn-outline-secondary btn-sm mb-3 mb-lg-0" type="button">
+									<i class="fa-solid fa-trash me-2"></i>Limpar região
+								</button>
+							</div>
+							<hr>
+							<p class="lh-sm mb-2"><small>Agricultura, inclusive o apoio à agricultura e a pós-colheita</small></p>
+							<input id ="atividades_su_1" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Pecuária, inclusive o apoio à pecuária</small></p>
+							<input id ="atividades_su_2" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Produção florestal; pesca e aquicultura</small></p>
+							<input id ="atividades_su_3" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Extração de carvão mineral e de minerais não-metálicos</small></p>
+							<input id ="atividades_su_4" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Extração de petróleo e gás, inclusive as atividades de apoio</small></p>
+							<input id ="atividades_su_5" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Extração de minério de ferro, inclusive beneficiamentos e a aglomeração</small></p>
+							<input id ="atividades_su_6" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Extração de minerais metálicos não-ferrosos, inclusive beneficiamentos</small></p>
+							<input id ="atividades_su_7" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Abate e produtos de carne, inclusive os produtos do laticínio e da pesca</small></p>
+							<input id ="atividades_su_8" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação e refino de açúcar</small></p>
+							<input id ="atividades_su_9" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Outros produtos alimentares</small></p>
+							<input id ="atividades_su_10" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de bebidas</small></p>
+							<input id ="atividades_su_11" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de produtos do fumo</small></p>
+							<input id ="atividades_su_12" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de produtos têxteis</small></p>
+							<input id ="atividades_su_13" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Confecção de artefatos do vestuário e acessórios</small></p>
+							<input id ="atividades_su_14" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de calçados e de artefatos de couro</small></p>
+							<input id ="atividades_su_15" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de produtos da madeira</small></p>
+							<input id ="atividades_su_16" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de celulose, papel e produtos de papel</small></p>
+							<input id ="atividades_su_17" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Impressão e reprodução de gravações</small></p>
+							<input id ="atividades_su_18" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Refino de petróleo e coquerias</small></p>
+							<input id ="atividades_su_19" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de biocombustíveis</small></p>
+							<input id ="atividades_su_20" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de químicos orgânicos e inorgânicos, resinas e elastômeros</small></p>
+							<input id ="atividades_su_21" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de defensivos, desinfestantes, tintas e químicos diversos</small></p>
+							<input id ="atividades_su_22" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de produtos de limpeza, cosméticos/perfumaria e higiene pessoal</small></p>
+							<input id ="atividades_su_23" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de produtos farmoquímicos e farmacêuticos</small></p>
+							<input id ="atividades_su_24" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de produtos de borracha e de material plástico</small></p>
+							<input id ="atividades_su_25" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de produtos de minerais não-metálicos</small></p>
+							<input id ="atividades_su_26" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Produção de ferro-gusa/ferroligas, siderurgia e tubos de aço sem costura</small></p>
+							<input id ="atividades_su_27" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Metalurgia de metais não-ferosos e a fundição de metais</small></p>
+							<input id ="atividades_su_28" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de produtos de metal, exceto máquinas e equipamentos</small></p>
+							<input id ="atividades_su_29" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de equipamentos de informática, produtos eletrônicos e ópticos</small></p>
+							<input id ="atividades_su_30" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de máquinas e equipamentos elétricos</small></p>
+							<input id ="atividades_su_31" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de máquinas e equipamentos mecânicos</small></p>
+							<input id ="atividades_su_32" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de automóveis, caminhões e ônibus, exceto peças</small></p>
+							<input id ="atividades_su_33" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de peças e acessórios para veículos automotores</small></p>
+							<input id ="atividades_su_34" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de outros equipamentos de transporte, exceto veículos automotores</small></p>
+							<input id ="atividades_su_35" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de móveis e de produtos de indústrias diversas</small></p>
+							<input id ="atividades_su_36" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Manutenção, reparação e instalação de máquinas e equipamentos</small></p>
+							<input id ="atividades_su_37" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Energia elétrica, gás natural e outras utilidades</small></p>
+							<input id ="atividades_su_38" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Água, esgoto e gestão de resíduos</small></p>
+							<input id ="atividades_su_39" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Construção</small></p>
+							<input id ="atividades_su_40" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Comércio e reparação de veículos automotores e motocicletas</small></p>
+							<input id ="atividades_su_41" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Comércio por atacado e a varejo, exceto veículos automotores</small></p>
+							<input id ="atividades_su_42" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Transporte terrestre</small></p>
+							<input id ="atividades_su_43" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Transporte aquaviário</small></p>
+							<input id ="atividades_su_44" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Transporte aéreo</small></p>
+							<input id ="atividades_su_45" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Armazenamento, atividades auxiliares dos transportes e correio</small></p>
+							<input id ="atividades_su_46" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Alojamento</small></p>
+							<input id ="atividades_su_47" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Alimentação</small></p>
+							<input id ="atividades_su_48" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Edição e edição integrada à impressão</small></p>
+							<input id ="atividades_su_49" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividades de televisão, rádio, cinema e  gravação/edição de som e imagem</small></p>
+							<input id ="atividades_su_50" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Telecomunicações</small></p>
+							<input id ="atividades_su_51" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Desenvolvimento de sistemas e outros serviços de informação</small></p>
+							<input id ="atividades_su_52" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Intermediação financeira, seguros e previdência complementar</small></p>
+							<input id ="atividades_su_53" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividades imobiliárias</small></p>
+							<input id ="atividades_su_54" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividades jurídicas, contábeis, consultoria e sedes de empresas </small></p>
+							<input id ="atividades_su_55" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Serviços de arquitetura, engenharia, testes/análises técnicas e P & D</small></p>
+							<input id ="atividades_su_56"class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Outras atividades profissionais, científicas e técnicas</small></p>
+							<input id ="atividades_su_57" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Aluguéis não-imobiliários e gestão de ativos de propriedade intelectual</small></p>
+							<input id ="atividades_su_58" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Outras atividades administrativas e serviços complementares</small></p>
+							<input id ="atividades_su_59" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividades de vigilância, segurança e investigação</small></p>
+							<input id ="atividades_su_60" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Administração pública, defesa e seguridade social</small></p>
+							<input id ="atividades_su_61" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Educação pública</small></p>
+							<input id ="atividades_su_62" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Educação privada</small></p>
+							<input id ="atividades_su_63" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Saúde pública</small></p>
+							<input id ="atividades_su_64"  class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Saúde privada</small></p>
+							<input id ="atividades_su_65" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividades artísticas, criativas e de espetáculos</small></p>
+							<input id ="atividades_su_66" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Organizações associativas e outros serviços pessoais</small></p>
+							<input id ="atividades_su_67" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Serviços domésticos</small></p>
+							<input id ="atividades_su_68" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 						</div>
 					</div>
 				 </div>
-				 <div class="accordion-item">
+				 <div class="accordion-item" id="rg_sudeste" >
 					<h2 class="accordion-header">
 						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sudeste" aria-expanded="false" aria-controls="sudeste">Sudeste</button>
 					</h2>
 					<div id="sudeste" class="accordion-collapse collapse" data-bs-parent="#accordionChoque">
 						<div class="accordion-body">
-							Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.
+							<div class="text-center">
+								<button class="btn btn-outline-secondary btn-sm mb-3 mb-lg-0" type="button">
+									<i class="fa-solid fa-trash me-2"></i>Limpar região
+								</button>
+							</div>
+							<hr>
+							<p class="lh-sm mb-2"><small>Agricultura, inclusive o apoio à agricultura e a pós-colheita</small></p>
+							<input id ="atividades_sd_1" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Pecuária, inclusive o apoio à pecuária</small></p>
+							<input id ="atividades_sd_2" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Produção florestal; pesca e aquicultura</small></p>
+							<input id ="atividades_sd_3" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Extração de carvão mineral e de minerais não-metálicos</small></p>
+							<input id ="atividades_sd_4" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Extração de petróleo e gás, inclusive as atividades de apoio</small></p>
+							<input id ="atividades_sd_5" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Extração de minério de ferro, inclusive beneficiamentos e a aglomeração</small></p>
+							<input id ="atividades_sd_6" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Extração de minerais metálicos não-ferrosos, inclusive beneficiamentos</small></p>
+							<input id ="atividades_sd_7" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Abate e produtos de carne, inclusive os produtos do laticínio e da pesca</small></p>
+							<input id ="atividades_sd_8" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação e refino de açúcar</small></p>
+							<input id ="atividades_sd_9" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Outros produtos alimentares</small></p>
+							<input id ="atividades_sd_10" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de bebidas</small></p>
+							<input id ="atividades_sd_11" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de produtos do fumo</small></p>
+							<input id ="atividades_sd_12" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de produtos têxteis</small></p>
+							<input id ="atividades_sd_13" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Confecção de artefatos do vestuário e acessórios</small></p>
+							<input id ="atividades_sd_14" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de calçados e de artefatos de couro</small></p>
+							<input id ="atividades_sd_15" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de produtos da madeira</small></p>
+							<input id ="atividades_sd_16" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de celulose, papel e produtos de papel</small></p>
+							<input id ="atividades_sd_17" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Impressão e reprodução de gravações</small></p>
+							<input id ="atividades_sd_18" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Refino de petróleo e coquerias</small></p>
+							<input id ="atividades_sd_19" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de biocombustíveis</small></p>
+							<input id ="atividades_sd_20" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de químicos orgânicos e inorgânicos, resinas e elastômeros</small></p>
+							<input id ="atividades_sd_21" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de defensivos, desinfestantes, tintas e químicos diversos</small></p>
+							<input id ="atividades_sd_22" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de produtos de limpeza, cosméticos/perfumaria e higiene pessoal</small></p>
+							<input id ="atividades_sd_23" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de produtos farmoquímicos e farmacêuticos</small></p>
+							<input id ="atividades_sd_24" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de produtos de borracha e de material plástico</small></p>
+							<input id ="atividades_sd_25" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de produtos de minerais não-metálicos</small></p>
+							<input id ="atividades_sd_26" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Produção de ferro-gusa/ferroligas, siderurgia e tubos de aço sem costura</small></p>
+							<input id ="atividades_sd_27" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Metalurgia de metais não-ferosos e a fundição de metais</small></p>
+							<input id ="atividades_sd_28" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de produtos de metal, exceto máquinas e equipamentos</small></p>
+							<input id ="atividades_sd_29" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de equipamentos de informática, produtos eletrônicos e ópticos</small></p>
+							<input id ="atividades_sd_30" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de máquinas e equipamentos elétricos</small></p>
+							<input id ="atividades_sd_31" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de máquinas e equipamentos mecânicos</small></p>
+							<input id ="atividades_sd_32" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de automóveis, caminhões e ônibus, exceto peças</small></p>
+							<input id ="atividades_sd_33" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de peças e acessórios para veículos automotores</small></p>
+							<input id ="atividades_sd_34" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de outros equipamentos de transporte, exceto veículos automotores</small></p>
+							<input id ="atividades_sd_35" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de móveis e de produtos de indústrias diversas</small></p>
+							<input id ="atividades_sd_36" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Manutenção, reparação e instalação de máquinas e equipamentos</small></p>
+							<input id ="atividades_sd_37" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Energia elétrica, gás natural e outras utilidades</small></p>
+							<input id ="atividades_sd_38" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Água, esgoto e gestão de resíduos</small></p>
+							<input id ="atividades_sd_39" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Construção</small></p>
+							<input id ="atividades_sd_40" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Comércio e reparação de veículos automotores e motocicletas</small></p>
+							<input id ="atividades_sd_41" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Comércio por atacado e a varejo, exceto veículos automotores</small></p>
+							<input id ="atividades_sd_42" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Transporte terrestre</small></p>
+							<input id ="atividades_sd_43" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Transporte aquaviário</small></p>
+							<input id ="atividades_sd_44" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Transporte aéreo</small></p>
+							<input id ="atividades_sd_45" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Armazenamento, atividades auxiliares dos transportes e correio</small></p>
+							<input id ="atividades_sd_46" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Alojamento</small></p>
+							<input id ="atividades_sd_47" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Alimentação</small></p>
+							<input id ="atividades_sd_48" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Edição e edição integrada à impressão</small></p>
+							<input id ="atividades_sd_49" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividades de televisão, rádio, cinema e  gravação/edição de som e imagem</small></p>
+							<input id ="atividades_sd_50" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Telecomunicações</small></p>
+							<input id ="atividades_sd_51" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Desenvolvimento de sistemas e outros serviços de informação</small></p>
+							<input id ="atividades_sd_52" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Intermediação financeira, seguros e previdência complementar</small></p>
+							<input id ="atividades_sd_53" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividades imobiliárias</small></p>
+							<input id ="atividades_sd_54" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividades jurídicas, contábeis, consultoria e sedes de empresas </small></p>
+							<input id ="atividades_sd_55" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Serviços de arquitetura, engenharia, testes/análises técnicas e P & D</small></p>
+							<input id ="atividades_sd_56"class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Outras atividades profissionais, científicas e técnicas</small></p>
+							<input id ="atividades_sd_57" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Aluguéis não-imobiliários e gestão de ativos de propriedade intelectual</small></p>
+							<input id ="atividades_sd_58" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Outras atividades administrativas e serviços complementares</small></p>
+							<input id ="atividades_sd_59" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividades de vigilância, segurança e investigação</small></p>
+							<input id ="atividades_sd_60" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Administração pública, defesa e seguridade social</small></p>
+							<input id ="atividades_sd_61" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Educação pública</small></p>
+							<input id ="atividades_sd_62" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Educação privada</small></p>
+							<input id ="atividades_sd_63" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Saúde pública</small></p>
+							<input id ="atividades_sd_64"  class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Saúde privada</small></p>
+							<input id ="atividades_sd_65" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividades artísticas, criativas e de espetáculos</small></p>
+							<input id ="atividades_sd_66" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Organizações associativas e outros serviços pessoais</small></p>
+							<input id ="atividades_sd_67" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Serviços domésticos</small></p>
+							<input id ="atividades_sd_68" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
 						</div>
 					</div>
 				 </div>
+				 <div class="accordion-item" id="rg_centroOeste">
+					<h2 class="accordion-header">
+						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#centroOeste" aria-expanded="false" aria-controls="centroOeste">Centro-Oeste</button>
+					</h2>
+					<div id="centroOeste" class="accordion-collapse collapse" data-bs-parent="#accordionChoque">
+						<div class="accordion-body">
+							<div class="text-center">
+								<button class="btn btn-outline-secondary btn-sm mb-3 mb-lg-0" type="button">
+									<i class="fa-solid fa-trash me-2"></i>Limpar região
+								</button>
+							</div>
+							<hr>
+							<p class="lh-sm mb-2"><small>Agricultura, inclusive o apoio à agricultura e a pós-colheita</small></p>
+							<input id ="atividades_co_1" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Pecuária, inclusive o apoio à pecuária</small></p>
+							<input id ="atividades_co_2" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Produção florestal; pesca e aquicultura</small></p>
+							<input id ="atividades_co_3" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Extração de carvão mineral e de minerais não-metálicos</small></p>
+							<input id ="atividades_co_4" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Extração de petróleo e gás, inclusive as atividades de apoio</small></p>
+							<input id ="atividades_co_5" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Extração de minério de ferro, inclusive beneficiamentos e a aglomeração</small></p>
+							<input id ="atividades_co_6" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Extração de minerais metálicos não-ferrosos, inclusive beneficiamentos</small></p>
+							<input id ="atividades_co_7" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Abate e produtos de carne, inclusive os produtos do laticínio e da pesca</small></p>
+							<input id ="atividades_co_8" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação e refino de açúcar</small></p>
+							<input id ="atividades_co_9" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Outros produtos alimentares</small></p>
+							<input id ="atividades_co_10" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de bebidas</small></p>
+							<input id ="atividades_co_11" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de produtos do fumo</small></p>
+							<input id ="atividades_co_12" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de produtos têxteis</small></p>
+							<input id ="atividades_co_13" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Confecção de artefatos do vestuário e acessórios</small></p>
+							<input id ="atividades_co_14" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de calçados e de artefatos de couro</small></p>
+							<input id ="atividades_co_15" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de produtos da madeira</small></p>
+							<input id ="atividades_co_16" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de celulose, papel e produtos de papel</small></p>
+							<input id ="atividades_co_17" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Impressão e reprodução de gravações</small></p>
+							<input id ="atividades_co_18" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Refino de petróleo e coquerias</small></p>
+							<input id ="atividades_co_19" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de biocombustíveis</small></p>
+							<input id ="atividades_co_20" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de químicos orgânicos e inorgânicos, resinas e elastômeros</small></p>
+							<input id ="atividades_co_21" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de defensivos, desinfestantes, tintas e químicos diversos</small></p>
+							<input id ="atividades_co_22" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de produtos de limpeza, cosméticos/perfumaria e higiene pessoal</small></p>
+							<input id ="atividades_co_23" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de produtos farmoquímicos e farmacêuticos</small></p>
+							<input id ="atividades_co_24" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de produtos de borracha e de material plástico</small></p>
+							<input id ="atividades_co_25" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de produtos de minerais não-metálicos</small></p>
+							<input id ="atividades_co_26" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Produção de ferro-gusa/ferroligas, siderurgia e tubos de aço sem costura</small></p>
+							<input id ="atividades_co_27" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Metalurgia de metais não-ferosos e a fundição de metais</small></p>
+							<input id ="atividades_co_28" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de produtos de metal, exceto máquinas e equipamentos</small></p>
+							<input id ="atividades_co_29" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de equipamentos de informática, produtos eletrônicos e ópticos</small></p>
+							<input id ="atividades_co_30" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de máquinas e equipamentos elétricos</small></p>
+							<input id ="atividades_co_31" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de máquinas e equipamentos mecânicos</small></p>
+							<input id ="atividades_co_32" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de automóveis, caminhões e ônibus, exceto peças</small></p>
+							<input id ="atividades_co_33" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de peças e acessórios para veículos automotores</small></p>
+							<input id ="atividades_co_34" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de outros equipamentos de transporte, exceto veículos automotores</small></p>
+							<input id ="atividades_co_35" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Fabricação de móveis e de produtos de indústrias diversas</small></p>
+							<input id ="atividades_co_36" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Manutenção, reparação e instalação de máquinas e equipamentos</small></p>
+							<input id ="atividades_co_37" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Energia elétrica, gás natural e outras utilidades</small></p>
+							<input id ="atividades_co_38" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Água, esgoto e gestão de resíduos</small></p>
+							<input id ="atividades_co_39" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Construção</small></p>
+							<input id ="atividades_co_40" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Comércio e reparação de veículos automotores e motocicletas</small></p>
+							<input id ="atividades_co_41" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Comércio por atacado e a varejo, exceto veículos automotores</small></p>
+							<input id ="atividades_co_42" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Transporte terrestre</small></p>
+							<input id ="atividades_co_43" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Transporte aquaviário</small></p>
+							<input id ="atividades_co_44" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Transporte aéreo</small></p>
+							<input id ="atividades_co_45" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Armazenamento, atividades auxiliares dos transportes e correio</small></p>
+							<input id ="atividades_co_46" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Alojamento</small></p>
+							<input id ="atividades_co_47" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Alimentação</small></p>
+							<input id ="atividades_co_48" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Edição e edição integrada à impressão</small></p>
+							<input id ="atividades_co_49" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividades de televisão, rádio, cinema e  gravação/edição de som e imagem</small></p>
+							<input id ="atividades_co_50" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Telecomunicações</small></p>
+							<input id ="atividades_co_51" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Desenvolvimento de sistemas e outros serviços de informação</small></p>
+							<input id ="atividades_co_52" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Intermediação financeira, seguros e previdência complementar</small></p>
+							<input id ="atividades_co_53" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividades imobiliárias</small></p>
+							<input id ="atividades_co_54" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividades jurídicas, contábeis, consultoria e sedes de empresas </small></p>
+							<input id ="atividades_co_55" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Serviços de arquitetura, engenharia, testes/análises técnicas e P & D</small></p>
+							<input id ="atividades_co_56"class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Outras atividades profissionais, científicas e técnicas</small></p>
+							<input id ="atividades_co_57" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Aluguéis não-imobiliários e gestão de ativos de propriedade intelectual</small></p>
+							<input id ="atividades_co_58" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Outras atividades administrativas e serviços complementares</small></p>
+							<input id ="atividades_co_59" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividades de vigilância, segurança e investigação</small></p>
+							<input id ="atividades_co_60" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Administração pública, defesa e seguridade social</small></p>
+							<input id ="atividades_co_61" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Educação pública</small></p>
+							<input id ="atividades_co_62" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Educação privada</small></p>
+							<input id ="atividades_co_63" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Saúde pública</small></p>
+							<input id ="atividades_co_64"  class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Saúde privada</small></p>
+							<input id ="atividades_co_65" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Atividades artísticas, criativas e de espetáculos</small></p>
+							<input id ="atividades_co_66" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Organizações associativas e outros serviços pessoais</small></p>
+							<input id ="atividades_co_67" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+							<hr>
+							<p class="lh-sm mb-2"><small>Serviços domésticos</small></p>
+							<input id ="atividades_co_68" class="form-control form-control-sm" type="text" placeholder="Informe o valor">
+						</div>
+					</div>
+				</div>
 			 </div>
 		</div>
 	 </div>

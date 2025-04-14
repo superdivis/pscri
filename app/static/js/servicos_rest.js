@@ -151,7 +151,7 @@ function carrega_regioes(){
                 $select.append('<option value="'+lstRegioes[i].id+'">'+lstRegioes[i].nome+'</option>');
             }
             $select.selectpicker('refresh');
-            $select.selectpicker('val', '1');
+            //$select.selectpicker('val', '1');
         }
     }
 };
@@ -184,11 +184,27 @@ function monta_resumo(){
             let resumo = JSON.parse(xhr.response);
             var $tb_resumo = $('#tb_resumo tbody');
             $tb_resumo.empty();
-            let str_tb_resumo =  '<tr><td>Norte</td><td class="text-center">'+ resumo.multiplicador_n +'</td><td class="text-center">' + resumo.vazamento_n + '%</td><td class="text-center">' + resumo.per_pib_n + '%</td></tr>'
-			str_tb_resumo = str_tb_resumo + '<tr><td>Nordeste</td><td class="text-center">1.50</td><td class="text-center">15%</td><td class="text-center">0.12%</td></tr>'
-            str_tb_resumo = str_tb_resumo + '<tr><td>Sudeste</td><td class="text-center">1.71</td><td class="text-center">6%</td><td class="text-center">0.03%</td></tr>'
-            str_tb_resumo = str_tb_resumo + '<tr><td>Sul</td><td class="text-center">1.54</td><td class="text-center">17%</td><td class="text-center">0.10%</td></tr>'
-            str_tb_resumo = str_tb_resumo + '<tr><td>Centro-Oeste</td><td class="text-center">1.84</td><td class="text-center">32%</td><td class="text-center">0.14%</td></tr>'
+            let str_tb_resumo = ""; 
+            if(resumo.per_pib_n > 0.01){
+                str_tb_resumo =  '<tr><td>Norte</td><td class="text-center">'+ resumo.multiplicador_n +'</td><td class="text-center">' + resumo.vazamento_n + '%</td><td class="text-center">' + resumo.per_pib_n + '%</td></tr>'
+            }
+            			
+            if (resumo.per_pib_ne > 0.01){
+                str_tb_resumo = str_tb_resumo + '<tr><td>Nordeste</td><td class="text-center">'+ resumo.multiplicador_ne +'</td><td class="text-center">' + resumo.vazamento_ne + '%</td><td class="text-center">' + resumo.per_pib_ne + '%</td></tr>'
+            }
+            
+            if (resumo.per_pib_se > 0.01){
+                str_tb_resumo = str_tb_resumo + '<tr><td>Sudeste</td><td class="text-center">'+ resumo.multiplicador_se +'</td><td class="text-center">' + resumo.vazamento_se + '%</td><td class="text-center">' + resumo.per_pib_se + '%</td></tr>'
+            }
+            
+            if (resumo.per_pib_s > 0.01){
+                str_tb_resumo = str_tb_resumo + '<tr><td>Sul</td><td class="text-center">'+ resumo.multiplicador_s +'</td><td class="text-center">' + resumo.vazamento_s + '%</td><td class="text-center">' + resumo.per_pib_s + '%</td></tr>'
+            }        
+
+            if (resumo.per_pib_co > 0.01){
+                str_tb_resumo = str_tb_resumo + '<tr><td>Centro-Oeste</td><td class="text-center">'+ resumo.multiplicador_co +'</td><td class="text-center">' + resumo.vazamento_co + '%</td><td class="text-center">' + resumo.per_pib_co + '%</td></tr>'
+            }
+
             $tb_resumo.append(str_tb_resumo);
         }
     }
@@ -247,6 +263,27 @@ function pib_por_regiao_map(){
         if(xhr.status==200){
            let pib_por_regiao = JSON.parse(xhr.response);
            atualiza_mapa(pib_por_regiao);
+        }else if(xhr.status==404){
+           alert ("Erro no serviço - pib_novo_completo_atividades");
+        }
+    }  
+
+}
+
+//Atualiza mapa com dados retornados do serviço
+function aplicar_choque_completo(delta_y){
+
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST","/enviar_delta_y", true);
+    xhr.setRequestHeader("Content-Type", "application/json","Access-Control-Allow-Origin", "*");
+    xhr.send(JSON.stringify(delta_y));
+    //xhr.send(delta_y);
+
+    xhr.onload= function(){
+        if(xhr.status==201){
+           let pib_por_regiao = JSON.parse(xhr.response);
+           //atualiza_mapa(pib_por_regiao);
+           aplicar_choque();
         }else if(xhr.status==404){
            alert ("Erro no serviço - pib_novo_completo_atividades");
         }

@@ -152,6 +152,9 @@ var data = {
   ]
 };
 
+//Limpa dados treemap
+data = {};
+
 series.data.setAll([data]);
 series.set("selectedDataItem", series.dataItems[0]);
 

@@ -8,7 +8,6 @@
 # +-------------------------------------------------------------+----------------------------------------------------------
 
 from calculadora_ipea_dao import * 
-#import pandas as pd
 import numpy as np
 
 ####################
@@ -153,5 +152,3 @@ def monta_delta_x (x1,x2,x3,x4,x5):
   for i in x5:
     x_tmp.append(i)
   return x_tmp
-
-  
