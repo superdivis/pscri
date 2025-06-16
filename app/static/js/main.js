@@ -74,7 +74,11 @@ window.addEventListener('load', function() {
             var btn_nome_base = id_atividade + i.toString();
             var atividade_selecionada = document.querySelector(btn_nome_base);
             var at_valor = atividade_selecionada.value;
-            item = {id: ct , valor: at_valor};
+            if($("#rg_norte").is(':visible')){
+               item = {id: ct , valor: at_valor};     
+            }else{
+                item = {id: ct , valor: 0};
+            }
             dados.push(item);
             var ct = ct + 1;
         }
@@ -83,7 +87,11 @@ window.addEventListener('load', function() {
             var btn_nome_base = id_atividade + i.toString();
             var atividade_selecionada = document.querySelector(btn_nome_base);
             var at_valor = atividade_selecionada.value;
-            item = {id: ct , valor: at_valor};
+            if($("#rg_nordeste").is(':visible')){
+               item = {id: ct , valor: at_valor};     
+            }else{
+                item = {id: ct , valor: 0};
+            }
             dados.push(item);
             var ct = ct + 1;
         }
@@ -92,7 +100,11 @@ window.addEventListener('load', function() {
             var btn_nome_base = id_atividade + i.toString();
             var atividade_selecionada = document.querySelector(btn_nome_base);
             var at_valor = atividade_selecionada.value;
-            item = {id: ct , valor: at_valor};
+            if($("#rg_sul").is(':visible')){
+               item = {id: ct , valor: at_valor};     
+            }else{
+                item = {id: ct , valor: 0};
+            }
             dados.push(item);
             var ct = ct + 1;
         }
@@ -101,7 +113,11 @@ window.addEventListener('load', function() {
             var btn_nome_base = id_atividade + i.toString();
             var atividade_selecionada = document.querySelector(btn_nome_base);
             var at_valor = atividade_selecionada.value;
-            item = {id: ct , valor: at_valor};
+            if($("#rg_sudeste").is(':visible')){
+               item = {id: ct , valor: at_valor};     
+            }else{
+                item = {id: ct , valor: 0};
+            }
             dados.push(item);
             var ct = ct + 1;
         }
@@ -110,7 +126,11 @@ window.addEventListener('load', function() {
             var btn_nome_base = id_atividade + i.toString();
             var atividade_selecionada = document.querySelector(btn_nome_base);
             var at_valor = atividade_selecionada.value;
-            item = {id: ct , valor: at_valor};
+            if($("#rg_centroOeste").is(':visible')){
+               item = {id: ct , valor: at_valor};     
+            }else{
+                item = {id: ct , valor: 0};
+            }
             dados.push(item);
             var ct = ct + 1;
         }
