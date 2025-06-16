@@ -22,7 +22,7 @@ from operator import itemgetter
 #+------------------------
 ip = 'localhost'
 #ip = '10.4.201.187'
-#ip = '192.168.18.247' 
+#ip = '192.168.0.8' 
 
 max_col = 340
 max_lin = 340
@@ -53,6 +53,75 @@ delta_y_ne = np.zeros((max_lin,1), dtype=np.float64)
 delta_y_se = np.zeros((max_lin,1), dtype=np.float64)
 delta_y_s = np.zeros((max_lin,1), dtype=np.float64)
 delta_y_co = np.zeros((max_lin,1), dtype=np.float64)
+
+'''
+#Choque default na atividade 1 - Agricultura, inclusive o apoio à agricultura e a pós-colheita
+delta_y_n[0]    = 1000
+delta_y_ne[68]  = 1000
+delta_y_se[136] = 1000
+delta_y_s[204]  = 1000
+delta_y_co[273] = 1000
+
+#+-----------------------------+
+#|Quadro Resumo - Multiplicador|
+#+-----------------------------+----------------------
+delta_x_n = preparar_delta_x(matriz_insumo,delta_y_n)
+delta_x_ne = preparar_delta_x(matriz_insumo,delta_y_ne)
+delta_x_se = preparar_delta_x(matriz_insumo,delta_y_se)
+delta_x_s = preparar_delta_x(matriz_insumo,delta_y_s)
+delta_x_co = preparar_delta_x(matriz_insumo,delta_y_co)
+delta_x = monta_delta_x(delta_x_n[0:68],delta_x_ne[68:136],delta_x_se[136:204],delta_x_s[204:272],delta_x_co[272:])
+
+delta_pib  = calcular_delta_pib(pib_atual, vetor_v, delta_x)
+delta_pib_n = calcular_delta_pib(pib_atual, vetor_v, delta_x_n)
+delta_pib_ne = calcular_delta_pib(pib_atual, vetor_v, delta_x_ne)
+delta_pib_se = calcular_delta_pib(pib_atual, vetor_v, delta_x_se)
+delta_pib_s = calcular_delta_pib(pib_atual, vetor_v, delta_x_s)
+delta_pib_co = calcular_delta_pib(pib_atual, vetor_v, delta_x_co)
+
+#Cálculo dos vetores com os PIBs novos
+pib_novo_n  =  calcular_novo_pib(pib_atual,delta_pib_n)
+pib_novo_ne  =  calcular_novo_pib(pib_atual,delta_pib_ne)
+pib_novo_se  =  calcular_novo_pib(pib_atual,delta_pib_se)
+pib_novo_s  =  calcular_novo_pib(pib_atual,delta_pib_s)
+pib_novo_co  =  calcular_novo_pib(pib_atual,delta_pib_co)
+
+#Totals dos vetores com os PIBs novos por região
+pib_novo_soma_n = np.sum(pib_novo_n[0:68])
+pib_novo_soma_ne = np.sum(pib_novo_ne[68:136])
+pib_novo_soma_se = np.sum(pib_novo_se[136:204])
+pib_novo_soma_s =  np.sum(pib_novo_s[204:272])
+pib_novo_soma_co = np.sum(pib_novo_co[272:])
+pib_novo = pib_novo_n[0:68] + pib_novo_ne[68:136] + pib_novo_se[136:204] + pib_novo_s[204:272] + pib_novo_co[272:]
+
+#Cálculo dos multiplicadores
+multiplicador_n = round(np.sum(delta_x_n)/np.sum(delta_y_n),2)
+multiplicador_ne = round(np.sum(delta_x_ne)/np.sum(delta_y_ne),2)
+multiplicador_se = round(np.sum(delta_x_se)/np.sum(delta_y_se),2)
+multiplicador_s = round(np.sum(delta_x_s)/np.sum(delta_y_s),2)
+multiplicador_co = round(np.sum(delta_x_co)/np.sum(delta_y_co),2)
+
+#Cálculo dos PIBs
+pib_atual_soma_n = np.sum(pib_atual[0:68])
+pib_atual_soma_ne = np.sum(pib_atual[68:136])
+pib_atual_soma_s =  np.sum(pib_atual[204:272])
+pib_atual_soma_se = np.sum(pib_atual[136:204])
+pib_atual_soma_co = np.sum(pib_atual[272:])
+
+#Cálculo dos vazamentos
+vazamento_n = round(((np.sum(delta_x_n) - np.sum(delta_x_n[0:68])) / np.sum(delta_x_n)) * 100 ) 
+vazamento_ne = round(((np.sum(delta_x_ne) - np.sum(delta_x_ne[68:136])) / np.sum(delta_x_ne)) * 100  )
+vazamento_s = round(((np.sum(delta_x_s) - np.sum(delta_x_s[204:272])) / np.sum(delta_x_s)) * 100  )
+vazamento_se = round(((np.sum(delta_x_se) - np.sum(delta_x_se[136:204])) / np.sum(delta_x_se)) * 100  )
+vazamento_co = round(((np.sum(delta_x_co) - np.sum(delta_x_co[272:])) / np.sum(delta_x_co)) * 100  )
+
+#Cálculo dos percentuais de crescimento
+per_pib_n = round(((pib_novo_soma_n / pib_atual_soma_n) - 1) * 100 , 2 )
+per_pib_ne = round(((pib_novo_soma_ne / pib_atual_soma_ne) - 1) * 100 , 2 )
+per_pib_s = round(((pib_novo_soma_s / pib_atual_soma_s) - 1) * 100 , 2  )
+per_pib_se = round(((pib_novo_soma_se / pib_atual_soma_se) - 1) * 100 , 2 )
+per_pib_co = round(((pib_novo_soma_co / pib_atual_soma_co) - 1) * 100  , 2 )
+'''
 
 @app.route("/")
 def index():
@@ -360,9 +429,6 @@ def cadastro():
 def enviarDeltaY():
     try:
         dados = request.json.get('dados')
-        #+------------------------
-        #| Inicia as variáveis globais
-        #+------------------------
         global delta_y, delta_y_n , delta_y_ne , delta_y_se , delta_y_s , delta_y_co 
 
         global delta_x_n 
@@ -378,7 +444,7 @@ def enviarDeltaY():
         global delta_pib_s 
         global delta_pib_co
         global delta_pib
-
+        
         #Cálculo dos vetores com os PIBs novos
         global pib_novo_n 
         global pib_novo_ne
@@ -421,6 +487,18 @@ def enviarDeltaY():
         global per_pib_s 
         global per_pib_se
         global per_pib_co
+
+        #Choque default na atividade 1 - Agricultura, inclusive o apoio à agricultura e a pós-colheita
+        #delta_y_n[0]    = 1
+        #delta_y_ne[68]  = 1
+        #delta_y_se[136] = 1
+        #delta_y_s[204]  = 1
+        #delta_y_co[272] = 1000
+        #delta_y_co[273] = 1000
+        #delta_y_co[274] = 1000
+        #delta_y_co[275] = 1000
+        #delta_y_co[276] = 1000
+        #delta_y_co[277] = 1000
 
         ct = 0
         for i in dados:
