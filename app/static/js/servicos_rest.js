@@ -277,13 +277,17 @@ function aplicar_choque_completo(delta_y){
     xhr.open("POST","/enviar_delta_y", true);
     xhr.setRequestHeader("Content-Type", "application/json","Access-Control-Allow-Origin", "*");
     xhr.send(JSON.stringify(delta_y));
-    //xhr.send(delta_y);
 
     xhr.onload= function(){
         if(xhr.status==201){
            let pib_por_regiao = JSON.parse(xhr.response);
-           //atualiza_mapa(pib_por_regiao);
-           aplicar_choque();
+           
+           var delayInMilliseconds = 300; //1 second
+           setTimeout(function() {
+                //your code to be executed after 1 second
+                aplicar_choque();
+           }, delayInMilliseconds);
+
         }else if(xhr.status==404){
            alert ("Erro no serviço - pib_novo_completo_atividades");
         }
