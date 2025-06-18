@@ -16,6 +16,11 @@ function aplicar_choque (){
     pib_por_regiao_map();
 };
 
+
+function aplicar_choque_v2 (){
+    monta_resumo();
+};
+
 function esconde_regioes(){
     $("#rg_norte").hide();
     $("#rg_nordeste").hide();

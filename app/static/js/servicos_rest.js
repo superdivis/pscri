@@ -206,6 +206,7 @@ function monta_resumo(){
             }
 
             $tb_resumo.append(str_tb_resumo);
+            monta_top_setores(10);
         }
     }
 };
@@ -231,7 +232,8 @@ function monta_top_setores(qt_setores){
                 '<td class="text-center">' + top_setores[i].perc_crescimento + '%</td>'+
                 '<td>'+ top_setores[i].nome_regiao +'</td></tr>';
                 $tb_top_setores.append(str_tb_top_setores);
-            }          
+            } 
+            pib_por_regiao_atividade();       
         }
     }
 };
@@ -246,11 +248,11 @@ function pib_por_regiao_atividade(){
         if(xhr.status==200){
            let pib_setores_regiao = JSON.parse(xhr.response);
            series.data.setAll([pib_setores_regiao]);
+           pib_por_regiao_map();  
         }else if(xhr.status==404){
             alert ("Erro no serviço - pib_novo_completo_atividades");
         }
     }  
-
 }
 
 //Atualiza mapa com dados retornados do serviço
@@ -280,14 +282,8 @@ function aplicar_choque_completo(delta_y){
 
     xhr.onload= function(){
         if(xhr.status==201){
-           let pib_por_regiao = JSON.parse(xhr.response);
-           
-           var delayInMilliseconds = 300; //1 second
-           setTimeout(function() {
-                //your code to be executed after 1 second
-                aplicar_choque();
-           }, delayInMilliseconds);
-
+           let pib_por_regiao = JSON.parse(xhr.response);     
+           aplicar_choque_v2();
         }else if(xhr.status==404){
            alert ("Erro no serviço - pib_novo_completo_atividades");
         }
