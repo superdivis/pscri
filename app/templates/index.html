@@ -86,7 +86,19 @@
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<p>Sobre lorem ipsum dolor sit amet...</p>
+					<p><b>Painel de Simulação de Cenários Regionais - PSCR</b></p>
+					<p>Aplicativo de simulação para aplicação de choques em matrizes de insumo-produto por região, 
+						desenvolvido no âmbito de uma bolsa de pesquisa. A ferramenta permite análises econômicas de 
+						forma simples, visual e interativa, facilitando o uso de matrizes de insumo-produto em 
+						estudos acadêmicos e aplicações práticas.
+					</p>
+					<p>
+						INSTITUTO DE PESQUISA ECONÔMICA APLICADA - IPEA 
+						<br>
+						Copyright © 2026 IPEA. Uso exclusivo para fins educacionais.
+						<br>
+						Dados de atualizados em 02/02/2026
+					</p>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
@@ -94,6 +106,46 @@
 			</div>
 		</div>
 	</div>
+
+	<!-- Modal Apply Simulations -->
+	<div class="modal fade" id="applyModal" tabindex="-1" aria-labelledby="applyModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5" id="deleteModalLabel">Excluir</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<p>Deseja realmente excluir a simulação?</p>
+					<p class="m-0 text-success" id="id_nome_simulacao">Nome da Simulação 01</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa-solid fa-xmark me-2"></i>Não</button>
+					<button type="button" class="btn btn-success" data-bs-dismiss="modal" id="id_btn_modal_delete_confirm"><i  class="fa-solid fa-check me-2" ></i>Sim</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal Warning -->
+	<div class="modal fade" id="warningModal" tabindex="-1" aria-labelledby="warningModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5" id="deleteModalLabel">Atenção</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<p>Seu choque está sem valores para serem aplicados. Insira valores para realizar a operação</p>
+					<p class="m-0 text-success" id="id_nome_simulacao">Escolha uma região, setores e insira valores.</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-success" data-bs-dismiss="modal" id="id_btn_modal_delete_confirm"><i  class="fa-solid fa-check me-2" ></i>Continuar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
 
 	<!-- Offcanvas Activities -->
 	<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasActivities" aria-labelledby="offcanvasActivitiesLabel">
@@ -1290,9 +1342,11 @@
 					<i class="fa-solid fa-chart-column me-2"></i>Simulações
 				</button>
 
+			<!-- <button class="btn btn-outline-light mb-3 mb-lg-0" type="button" data-bs-toggle="modal" data-bs-target="#aboutModal">-->
 				<button class="btn btn-outline-light mb-3 mb-lg-0" type="button" data-bs-toggle="modal" data-bs-target="#aboutModal">
 					<i class="fa-solid fa-circle-info me-0 me-lg-2"></i><span class="d-none d-lg-inline-block">Sobre</span>
 				</button>
+
 			</div>
 		</nav>
 
@@ -1574,7 +1628,7 @@
 
 		<!-- Footer -->
 		<footer class="bg-light text-center py-2 mt-auto">
-			<small class="m-0">© 2024 Instituto de Pesquisa Econômica Aplicada - Ipea</small>
+			<small class="m-0">© 2026 Instituto de Pesquisa Econômica Aplicada - Ipea</small>
 		</footer>
 	</div>
 

@@ -134,9 +134,11 @@ window.addEventListener('load', function() {
             dados.push(item);
             var ct = ct + 1;
         }
-        
         dados_delta_y = {dados};
-        aplicar_choque_completo(dados_delta_y);
+        
+        //Versão anterior do código
+        //aplicar_choque_completo(dados_delta_y);
+        aplicar_choque_carrega_infos(dados_delta_y);
     });  
     
     //Carregar painel de simulações

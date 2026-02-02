@@ -20,10 +20,10 @@ from operator import itemgetter
 #+------------------------
 #| Constantes iniciais 
 #+------------------------
+global ip
 ip = 'localhost'
-#ip = '10.4.201.187'
-#ip = '192.168.18.247' 
 
+global max_lin 
 max_col = 340
 max_lin = 340
 min_lin = 1
@@ -35,24 +35,13 @@ CORS(app, support_credentials=True)
 #+------------------------
 #| Inicia as variáveis
 #+------------------------
-atividades_contas_nacionais = retorna_atividades()
 matriz_insumo = prepara_ajuste_matriz(max_lin, max_col)
-regioes_br = retorna_regioes()
 vetor_y = prepara_vetor_y(max_lin, min_col)
 pib_atual = ler_vetor_pib(max_lin, min_col)
 vetor_x = prepara_vetor_x(matriz_insumo,vetor_y)
-vetor_v = calcular_vetor_v(pib_atual,vetor_x)
 
-#+---------------------------+
-#| Inicialização dos choques |
-#+---------------------------+----------------------
-#Vetores
-delta_y = np.zeros((max_lin,1), dtype=np.float64)
-delta_y_n = np.zeros((max_lin,1), dtype=np.float64)
-delta_y_ne = np.zeros((max_lin,1), dtype=np.float64)
-delta_y_se = np.zeros((max_lin,1), dtype=np.float64)
-delta_y_s = np.zeros((max_lin,1), dtype=np.float64)
-delta_y_co = np.zeros((max_lin,1), dtype=np.float64)
+global vetor_v
+vetor_v = calcular_vetor_v(pib_atual,vetor_x)
 
 @app.route("/")
 def index():
@@ -455,7 +444,6 @@ def enviarDeltaY():
             delta_y_ne = np.zeros((max_lin,1), dtype=np.float64)
             delta_y_ne[68]  = 0.01
             delta_x_ne = preparar_delta_x(matriz_insumo,delta_y_ne)
-            
                 
         if(delta_y_se.sum() > 0):
             delta_x_se = preparar_delta_x(matriz_insumo,delta_y_se)
@@ -562,6 +550,257 @@ def enviarDeltaY():
     except:
         return jsonify({'resultado': False}),400       
     return jsonify({'resultado':True}),201
+
+
+# Endpoint enviar delta y
+@app.route('/aplicar_choque', methods=['POST'])
+def aplicaChoqueMatriz():
+    #limpa retornos
+    resumo = dict()
+    pib_por_regiao = dict()
+    top_setores = dict()
+    pib_por_regiao_mapa = dict()
+    
+    #+---------------------------+
+    #| Inicialização dos choques |
+    #+---------------------------+----------------------
+    delta_y = np.zeros((max_lin,1), dtype=np.float64)
+    delta_y_n = np.zeros((max_lin,1), dtype=np.float64)
+    delta_y_ne = np.zeros((max_lin,1), dtype=np.float64)
+    delta_y_s = np.zeros((max_lin,1), dtype=np.float64)
+    delta_y_se = np.zeros((max_lin,1), dtype=np.float64)
+    delta_y_co = np.zeros((max_lin,1), dtype=np.float64)
+
+    #try:
+    dados = request.json.get('dados')
+    ct = 0
+    for i in dados:
+        if(ct<68):
+            delta_y_n[ct] = i["valor"]
+        elif(ct>=68 and ct<136):
+            delta_y_ne[ct] = i["valor"]
+        elif(ct>=136 and ct<204):
+            delta_y_se[ct] = i["valor"]
+        elif(ct>=204 and ct<272):
+            delta_y_s[ct] = i["valor"]
+        elif(ct>=272):
+            delta_y_co[ct] = i["valor"]    
+        #Delta completo
+        delta_y[ct]= i["valor"]    
+        ct= ct + 1
+            
+    #+-----------------------------+
+    #|Quadro Resumo - Multiplicador|
+    #+-----------------------------+----------------------
+    if(delta_y_n.sum() > 0):
+        delta_x_n = preparar_delta_x(matriz_insumo,delta_y_n)
+    else:
+        delta_y_n = np.zeros((max_lin,1), dtype=np.float64)
+        delta_y_n[0] = 0.01
+        delta_x_n = preparar_delta_x(matriz_insumo,delta_y_n)
+        
+    if(delta_y_ne.sum() > 0):
+        delta_x_ne = preparar_delta_x(matriz_insumo,delta_y_ne)
+    else:
+        delta_y_ne = np.zeros((max_lin,1), dtype=np.float64)
+        delta_y_ne[68]  = 0.01
+        delta_x_ne = preparar_delta_x(matriz_insumo,delta_y_ne)
+            
+    if(delta_y_se.sum() > 0):
+        delta_x_se = preparar_delta_x(matriz_insumo,delta_y_se)
+    else:
+        delta_y_se = np.zeros((max_lin,1), dtype=np.float64)
+        delta_y_se[136] = 0.01
+        delta_x_se = preparar_delta_x(matriz_insumo,delta_y_se)
+        
+    
+    if(delta_y_s.sum() > 0):
+        delta_x_s = preparar_delta_x(matriz_insumo,delta_y_s)
+    else:
+        delta_y_s = np.zeros((max_lin,1), dtype=np.float64)
+        delta_y_s[204]  = 0.01
+        delta_x_s = preparar_delta_x(matriz_insumo,delta_y_s)
+        
+    
+    if(delta_y_co.sum() > 0):
+        delta_x_co = preparar_delta_x(matriz_insumo,delta_y_co)
+    else:
+        delta_y_co = np.zeros((max_lin,1), dtype=np.float64)
+        delta_y_co[272] = 0.01 
+        delta_x_co = preparar_delta_x(matriz_insumo,delta_y_co)
+    
+    delta_x =  preparar_delta_x(matriz_insumo,delta_y)
+    
+    if(delta_x_n.sum() > 0):
+        delta_pib_n = calcular_delta_pib(pib_atual, vetor_v, delta_x_n)
+    if(delta_x_ne.sum() > 0):
+        delta_pib_ne = calcular_delta_pib(pib_atual, vetor_v, delta_x_ne)
+    if(delta_x_se.sum() > 0):
+        delta_pib_se = calcular_delta_pib(pib_atual, vetor_v, delta_x_se)
+    if(delta_x_s.sum() > 0):
+        delta_pib_s = calcular_delta_pib(pib_atual, vetor_v, delta_x_s)
+    if(delta_x_co.sum() > 0):
+        delta_pib_co = calcular_delta_pib(pib_atual, vetor_v, delta_x_co)
+    #delta_pib tendo delta_x como base
+    delta_pib  = calcular_delta_pib(pib_atual, vetor_v, delta_x)
+
+    #PIB tendo delta_pib como base
+    pib_novo = calcular_novo_pib(pib_atual,delta_pib)
+
+    pib_novo_soma_n = np.sum(pib_novo[0:68])
+    pib_novo_soma_ne = np.sum(pib_novo[68:136]) 
+    pib_novo_soma_se = np.sum(pib_novo[136:204])
+    pib_novo_soma_s =  np.sum(pib_novo[204:272])
+    pib_novo_soma_co = np.sum(pib_novo[272:])
+    
+    #Cálculo dos multiplicadores
+    if(delta_y_n.sum() > 0):
+        multiplicador_n = round(np.sum(delta_x_n)/np.sum(delta_y_n),2)
+    if(delta_y_ne.sum() > 0):
+        multiplicador_ne = round(np.sum(delta_x_ne)/np.sum(delta_y_ne),2)
+    if(delta_y_se.sum() > 0):
+        multiplicador_se = round(np.sum(delta_x_se)/np.sum(delta_y_se),2)
+    if(delta_y_s.sum() > 0):
+        multiplicador_s = round(np.sum(delta_x_s)/np.sum(delta_y_s),2)
+    if(delta_y_co.sum() > 0):
+        multiplicador_co = round(np.sum(delta_x_co)/np.sum(delta_y_co),2)
+
+    #Cálculo dos PIBs
+    pib_atual_soma_n = np.sum(pib_atual[0:68])
+    pib_atual_soma_ne = np.sum(pib_atual[68:136])
+    pib_atual_soma_s =  np.sum(pib_atual[204:272])
+    pib_atual_soma_se = np.sum(pib_atual[136:204])
+    pib_atual_soma_co = np.sum(pib_atual[272:])
+
+    #Cálculo dos vazamentos
+    if(delta_x_n.sum() > 0):
+        vazamento_n = round(((np.sum(delta_x_n) - np.sum(delta_x_n[0:68])) / np.sum(delta_x_n)) * 100 ) 
+    if(delta_x_ne.sum() > 0):
+        vazamento_ne = round(((np.sum(delta_x_ne) - np.sum(delta_x_ne[68:136])) / np.sum(delta_x_ne)) * 100  )
+    if(delta_x_s.sum() > 0):
+        vazamento_s = round(((np.sum(delta_x_s) - np.sum(delta_x_s[204:272])) / np.sum(delta_x_s)) * 100  )
+    if(delta_x_se.sum() > 0):
+        vazamento_se = round(((np.sum(delta_x_se) - np.sum(delta_x_se[136:204])) / np.sum(delta_x_se)) * 100  )
+    if(delta_x_co.sum() > 0):
+        vazamento_co = round(((np.sum(delta_x_co) - np.sum(delta_x_co[272:])) / np.sum(delta_x_co)) * 100  )
+    
+    #Cálculo dos percentuais de crescimento
+    per_pib_n = round(((pib_novo_soma_n / pib_atual_soma_n) - 1) * 100 , 2 ) 
+    per_pib_ne = round(((pib_novo_soma_ne / pib_atual_soma_ne) - 1) * 100 , 2 )
+    per_pib_s = round(((pib_novo_soma_s / pib_atual_soma_s) - 1) * 100 , 2  ) 
+    per_pib_se = round(((pib_novo_soma_se / pib_atual_soma_se) - 1) * 100 , 2 )
+    per_pib_co = round(((pib_novo_soma_co / pib_atual_soma_co) - 1) * 100  , 2 )
+
+    #+-----------------------------------
+    #| Montagem do resumo
+    #+-----------------------------------
+    resumo={"multiplicador_n": multiplicador_n ,  "multiplicador_ne": multiplicador_ne, 
+            "multiplicador_s": multiplicador_s, "multiplicador_se": multiplicador_se, 
+            "multiplicador_co": multiplicador_co, "vazamento_n": vazamento_n , "vazamento_ne": vazamento_ne,
+            "vazamento_se": vazamento_se , "vazamento_s": vazamento_s ,"vazamento_co": vazamento_co , "per_pib_n": per_pib_n ,
+            "per_pib_ne": per_pib_ne , "per_pib_s": per_pib_s , "per_pib_se": per_pib_se , "per_pib_co": per_pib_co } 
+
+    #+-----------------------------------
+    #|Montagem Pib por região mapa
+    #+-----------------------------------
+    pib_por_regiao_mapa={"pib_total_n": round(pib_novo_soma_n),  
+            "pib_total_ne": round(pib_novo_soma_ne), 
+            "pib_total_se": round(pib_novo_soma_se), 
+            "pib_total_s": round(pib_novo_soma_s), 
+            "pib_total_co": round(pib_novo_soma_co),
+            "pib_atual_total_n": round(pib_atual_soma_n) ,  
+            "pib_atual_total_ne": round(pib_atual_soma_ne), 
+            "pib_atual_total_se": round(pib_atual_soma_se), 
+            "pib_atual_total_s": round(pib_atual_soma_s), 
+            "pib_atual_total_co": round(pib_atual_soma_co),
+            "delta_pib_total_n": round(np.sum(delta_pib_n)) ,
+            "delta_pib_total_ne": round(np.sum(delta_pib_ne)) ,
+            "delta_pib_total_se": round(np.sum(delta_pib_se)) ,
+            "delta_pib_total_s": round(np.sum(delta_pib_s)) ,
+            "delta_pib_total_co": round(np.sum(delta_pib_co)) ,
+            "delta_x_soma_n": round(np.sum(delta_x_n)),
+            "delta_x_soma_ne": round(np.sum(delta_x_ne)),
+            "delta_x_soma_se": round(np.sum(delta_x_se)),
+            "delta_x_soma_s": round(np.sum(delta_x_s)),
+            "delta_x_soma_co": round(np.sum(delta_x_co))
+            }
+    
+    #+-----------------------------------
+    #| Montagem Top setores
+    #+-----------------------------------
+    #Inicia variáveis
+    i = 1
+    at = 0
+    rg = 0
+    atividades = retorna_atividades()
+    regioes = retorna_regioes()
+    pib_top_ret = []
+    for item in pib_novo:
+        #Processa participação no pib da região
+        if (rg == 0):
+            pib_participacao = round((pib_novo[i-1][0]/pib_atual_soma_n) * 100, 2)
+        elif (rg == 1):
+            pib_participacao = round((pib_novo[i-1][0]/pib_atual_soma_ne) * 100, 2)
+        elif (rg == 2):
+            pib_participacao = round((pib_novo[i-1][0]/pib_atual_soma_se) * 100, 2)
+        elif (rg == 3):
+            pib_participacao = round((pib_novo[i-1][0]/pib_atual_soma_s) * 100, 2)
+        else:
+            pib_participacao = round((pib_novo[i-1][0]/pib_atual_soma_co) * 100, 2)
+
+        #Calcula o percentual de crescimento
+        perc_crescimento = [0]
+        if (pib_novo[i-1][0] > 0 and pib_atual[i-1,0] > 0):
+            perc_crescimento = ((pib_novo[i-1] - pib_atual[i-1,0])/pib_atual[i-1,0]) * 100 
+
+        tmp_json={"index": i , "perc_crescimento": round(perc_crescimento[0],2) ,
+                "delta_x": round(delta_x[i-1][0],2), 
+                "pib_novo": pib_novo[i-1][0], 
+                "pib_atual": pib_atual[i-1,0] , 
+                "pib_participacao": pib_participacao , 
+                "id_atividade": at + 1 , 
+                "desc_atividade": atividades[at][1], 
+                "nome_regiao": regioes[rg][2]}
+        pib_top_ret.append(tmp_json)
+        i = i + 1
+        if (at<=66):
+            at = at + 1
+        else:
+            at=0
+            rg = rg + 1
+    s1 = json.dumps(pib_top_ret)        
+    d1 = json.loads(s1)
+    top_setores = sorted(d1, key = itemgetter('delta_x'), reverse=True)
+
+    #+-----------------------------------
+    #| Montagem TreeMap 
+    #+-----------------------------------
+    i = 1
+    at = 0
+    rg = 0
+    if (len(delta_pib) == 0 & len(atividades) == 0 & len(regioes) == 0):
+        return jsonify({'erro': 'PIB Novo completo não calculado!'}), 404
+    #Montagem da lista com o PIB Novo
+    pib_por_regiao = { "name": "Root", "children":[]}
+    
+    children_interno = []
+    for item in delta_pib:
+        #tmp_json={ "value": item[0] , "name": atividades[at][1], "nome_regiao": regioes[rg][2]}
+        tmp_json={ "value": round(item[0],2) , "name": atividades[at][1]}
+        children_interno.append(tmp_json)
+        i = i + 1
+        if (at<=66):
+            at = at + 1
+        else:
+            at=0
+            pib_por_regiao['children'].append({"name": regioes[rg][2],"children":children_interno})
+            children_interno = []
+            rg = rg + 1
+    
+#except:
+#    return jsonify({'resultado': False}),400       
+    return jsonify({'resultado':True, 'resumo': resumo, 'pib_por_regiao':pib_por_regiao, 
+                'top_setores': top_setores,'info_mapa': pib_por_regiao_mapa  }),201
 
 #------------------------------------------------------------------------
 #   *******   **     **  **********
